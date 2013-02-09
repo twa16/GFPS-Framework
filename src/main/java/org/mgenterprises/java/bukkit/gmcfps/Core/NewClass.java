@@ -21,20 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Listeners;
-
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
+package org.mgenterprises.java.bukkit.gmcfps.Core;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class CombatListeners implements Listener{
+public class NewClass {
     
-    @EventHandler
-    public void onPlayerDeathEvent(PlayerDeathEvent event){
-        
-    }
 }
