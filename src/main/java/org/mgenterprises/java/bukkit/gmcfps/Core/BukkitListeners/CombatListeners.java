@@ -31,8 +31,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.PlayerKillFactory;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.ScoreManager;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.PlayerKilledByPlayerSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
@@ -63,7 +63,8 @@ public class CombatListeners implements Listener {
 
     private void firePlayerKilledByPlayerEvent(Player killer, Player victim) {
         Weapon w = core.getWeaponManager().getWeaponByName(killer.getItemInHand().getType().name());
-        
-        
+        PlayerKilledByPlayerSource source = core.getEventManager().getPlayerKilledSource();
+        PlayerKilledByPlayerEvent pkpe = new PlayerKilledByPlayerEvent(source,w,victim,killer, victim.getLocation());
+        source.fireEvent(pkpe);
     }
 }

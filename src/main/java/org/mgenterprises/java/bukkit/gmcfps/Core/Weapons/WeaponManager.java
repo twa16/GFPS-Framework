@@ -23,12 +23,16 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Manuel Gauto
  */
 public class WeaponManager {
-
+    HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
+    
     public Weapon getWeaponByName(String name) {
+        return weapons.get(name);
     }
 }
