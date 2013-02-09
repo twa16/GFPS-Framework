@@ -26,25 +26,30 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
 import java.util.HashMap;
 import org.mgenterprises.java.bukkit.gmcfps.Core.BukkitListeners.CombatListeners;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerKilledByPlayerListener;
 
 /**
  * Manages scores for the games.
  * @author Manuel Gauto
  */
-public class ScoreManager{
+public class ScoreManager implements PlayerKilledByPlayerListener{
     private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
     
     /**
-     * Register a kill using a {@link PlayerKilledByPlayerEvent} object
-     * @param pk PlayerKilledByPlayerEvent reference, usually produced by {@link CombatListeners}
+     * Override method for PlayerKilledByPlayerEvent
+     * 
+     * @param event Event instance passed in
      */
-    public void registerKill(PlayerKilledByPlayerEvent pk){
-        String killerName = pk.getKiller().getName();
+    @Override
+    public void onPlayerKilledByPlayerEvent(PlayerKilledByPlayerEvent event) {
+        //Dunno what to put here
+        //lets start converting
+        String killerName = event.getKiller().getName();
         PlayerStats killerStats = stats.get(killerName);
-        killerStats.registerKill(pk);
+        killerStats.registerKill(event);
         this.stats.put(killerName, killerStats);
         
-        String victimName = pk.getVictim().getName();
+        String victimName = event.getVictim().getName();
         PlayerStats victimStats = stats.get(victimName);
         victimStats.registerDeath();
         this.stats.put(victimName, victimStats);
