@@ -9,7 +9,10 @@
 
     <name>GMCFPS</name>
     <url>http://maven.apache.org</url>
-
+    <ciManagement>
+        <system>hudson</system>
+        <url>http://jenkins.internal.mgenterprises.org/job/GMCFPS/</url>
+    </ciManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
