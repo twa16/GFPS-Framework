@@ -23,18 +23,38 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
+import org.bukkit.Material;
+import org.bukkit.event.player.PlayerInteractEvent;
+
 /**
  *
  * @author Manuel Gauto
  */
 public abstract class Weapon {
     private String name;
+    private Material material;
+    private WeaponManager wm;
     
-    public Weapon(String weaponName){
+    public Weapon(WeaponManager wm, String weaponName, Material material){
         this.name = weaponName;
+        this.material = material;
     }
     
     public String getName(){
         return this.name;
     }
+    
+    public Material getMaterial(){
+        return this.material;
+    }
+    
+    public WeaponManager getWeaponManager(){
+        return this.wm;
+    }
+    
+    public abstract void onWeaponRightClick(PlayerInteractEvent event);
+    
+    public abstract boolean isThrowable();
+    
+    public abstract boolean isProjectile();
 }

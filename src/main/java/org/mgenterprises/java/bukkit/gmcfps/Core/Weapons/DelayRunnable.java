@@ -21,39 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
+package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
-import java.lang.annotation.Documented;
-import java.util.HashMap;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerKilledByPlayerListener;
+import org.bukkit.entity.Player;
+import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 
 /**
- * Manages scores for the games.
  *
  * @author Manuel Gauto
  */
-public class ScoreManager implements PlayerKilledByPlayerListener {
-
-    private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
-
-    /**
-     * Override method for PlayerKilledByPlayerEvent
-     *
-     * @param event Event instance passed in
-     */
-    @Override
-    public void onPlayerKilledByPlayerEvent(PlayerKilledByPlayerEvent event) {
-        //Dunno what to put here
-        //lets start converting
-        String killerName = event.getKiller().getName();
-        PlayerStats killerStats = stats.get(killerName);
-        killerStats.registerKill(event);
-        this.stats.put(killerName, killerStats);
-
-        String victimName = event.getVictim().getName();
-        PlayerStats victimStats = stats.get(victimName);
-        victimStats.registerDeath();
-        this.stats.put(victimName, victimStats);
+public class DelayRunnable implements Runnable{
+    private FPSCore core;
+    private Player p;
+    
+    public DelayRunnable(FPSCore core, Player p){
+        this.core = core;
+        this.p = p;
     }
+    @Override
+    public void run() {
+        core.getWeaponManager().waiting.remove(p.getName());
+    }
+    
 }

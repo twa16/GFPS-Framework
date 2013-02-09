@@ -23,16 +23,24 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 
 /**
  *
  * @author Manuel Gauto
  */
 public class WeaponManager {
-    HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
+    private HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
+    public ArrayList<String> waiting = new ArrayList<String>();
+    private FPSCore fpsCore;
     
     public Weapon getWeaponByName(String name) {
         return weapons.get(name);
+    }
+    
+    public FPSCore getFPSCore(){
+        return this.fpsCore;
     }
 }
