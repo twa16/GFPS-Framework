@@ -3,7 +3,7 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core;
 
-import javax.tools.JavaFileManager.Location;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
@@ -22,5 +22,21 @@ public class PlayerKill {
         this.victim = victim;
         this.killer = killer;
         this.location = loc;
+    }
+    
+    public Weapon getWeaponUsed(){
+        return this.weaponUsed;
+    }
+    
+    public Player getVictim(){
+        return this.victim;
+    }
+    
+    public Player getKiller(){
+        return this.killer;
+    }
+    
+    public Location getKillLocation(){
+        return this.location;
     }
 }
