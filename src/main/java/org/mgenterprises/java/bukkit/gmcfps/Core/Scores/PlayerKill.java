@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core;
+package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

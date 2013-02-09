@@ -24,7 +24,6 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
 import java.util.HashMap;
-import org.mgenterprises.java.bukkit.gmcfps.Core.PlayerKill;
 
 /**
  * Manages scores for the games.

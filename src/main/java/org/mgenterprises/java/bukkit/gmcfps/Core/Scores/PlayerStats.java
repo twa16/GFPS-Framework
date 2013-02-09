@@ -26,7 +26,6 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
-import org.mgenterprises.java.bukkit.gmcfps.Core.PlayerKill;
 
 /**
  *
