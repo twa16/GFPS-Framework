@@ -21,40 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners;
 
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class PlayerKillFactory {
-    private Weapon weaponUsed;
-    private Player victim;
-    private Player killer;
-    private Location location;
-    
-    public void setWeapon(Weapon weapon){
-        this.weaponUsed = weapon;
-    }
-    
-    public void setVictim(Player victim){
-        this.victim = victim;
-    }
-    
-    public void setKiller(Player killer){
-        this.killer = killer;
-    }
-    
-    public void setLocation(Location location){
-        this.location = location;
-    }
-    
-    public PlayerKill build(){
-        PlayerKill pk = new PlayerKill(weaponUsed, victim, killer, location);
-        return pk;
-    }
+public interface PlayerKilledByPlayerListener {
+    public void onPlayerKilledByPlayerEvent(PlayerKilledByPlayerEvent event);
 }

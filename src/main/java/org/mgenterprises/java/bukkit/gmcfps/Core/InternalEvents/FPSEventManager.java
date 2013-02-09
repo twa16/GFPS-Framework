@@ -21,31 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
-
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
-import java.util.HashMap;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
 
 /**
- * Manages scores for the games.
+ *
  * @author Manuel Gauto
  */
-public class ScoreManager {
-    private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
+public class FPSEventManager {
     
-    /**
-     * Register a kill using a {@link PlayerKilledByPlayerEvent} object
-     * @param pk PlayerKilledByPlayerEvent reference, usually produced by {@link CombatListeners}
-     */
-    public void registerKill(PlayerKilledByPlayerEvent pk){
-        String killerName = pk.getKiller().getName();
-        PlayerStats killerStats = stats.get(killerName);
-        killerStats.registerKill(pk);
-        this.stats.put(killerName, killerStats);
-        
-        String victimName = pk.getVictim().getName();
-        PlayerStats victimStats = stats.get(victimName);
-        victimStats.registerDeath();
-        this.stats.put(victimName, victimStats);
-    }
 }

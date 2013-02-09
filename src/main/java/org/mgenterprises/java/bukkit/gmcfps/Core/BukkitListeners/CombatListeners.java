@@ -56,19 +56,13 @@ public class CombatListeners implements Listener {
             if (killer instanceof Player && victim instanceof Player) {
                 Player pKiller = (Player) killer;
                 Player pVictim = (Player) victim;
-                processPlayerKill(pKiller, pVictim);
+                fire(pKiller, pVictim);
             }
         }
     }
 
     private void processPlayerKill(Player killer, Player victim) {
         ScoreManager scoreManager = core.getScoreManager();
-        PlayerKillFactory pkf = new PlayerKillFactory();
-        pkf.setKiller(killer);
-        pkf.setVictim(victim);
-        pkf.setLocation(victim.getLocation());
         Weapon w = core.getWeaponManager().getWeaponByName(killer.getItemInHand().getType().name());
-        pkf.setWeapon(w);
-        scoreManager.registerKill(pkf.build());
     }
 }

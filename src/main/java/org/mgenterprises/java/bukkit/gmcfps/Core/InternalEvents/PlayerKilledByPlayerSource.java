@@ -21,31 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
 
+import java.util.ArrayList;
+import java.util.EventObject;
+import java.util.Iterator;
+import java.util.List;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
-import java.util.HashMap;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerKilledByPlayerListener;
 
 /**
- * Manages scores for the games.
+ *
  * @author Manuel Gauto
  */
-public class ScoreManager {
-    private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
-    
-    /**
-     * Register a kill using a {@link PlayerKilledByPlayerEvent} object
-     * @param pk PlayerKilledByPlayerEvent reference, usually produced by {@link CombatListeners}
-     */
-    public void registerKill(PlayerKilledByPlayerEvent pk){
-        String killerName = pk.getKiller().getName();
-        PlayerStats killerStats = stats.get(killerName);
-        killerStats.registerKill(pk);
-        this.stats.put(killerName, killerStats);
-        
-        String victimName = pk.getVictim().getName();
-        PlayerStats victimStats = stats.get(victimName);
-        victimStats.registerDeath();
-        this.stats.put(victimName, victimStats);
+public class PlayerKilledByPlayerSource extends FPSEventSource{
+
+    private List _listeners = new ArrayList();
+
+    public synchronized void addEventListener(PlayerKilledByPlayerListener listener) {
+        _listeners.add(listener);
+    }
+
+    public synchronized void removeEventListener(PlayerKilledByPlayerListener listener) {
+        _listeners.remove(listener);
+    }
+    @Override
+    public void fireEvent(EventObject event) {
+        PlayerKilledByPlayerEvent e = (PlayerKilledByPlayerEvent) event;
+        Iterator i = _listeners.iterator();
+        while (i.hasNext()) {
+            ((PlayerKilledByPlayerListener) i.next()).onPlayerKilledByPlayerEvent(e);
+        }
     }
 }

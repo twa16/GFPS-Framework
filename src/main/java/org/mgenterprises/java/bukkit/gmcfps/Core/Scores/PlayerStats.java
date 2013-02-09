@@ -23,6 +23,7 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class PlayerStats implements Serializable{
         return this.kills;
     }
     
-    public void registerKill(PlayerKill pk){
+    public void registerKill(PlayerKilledByPlayerEvent pk){
         this.kills++;
         int oldWeaponKillNum = this.weaponKills.get(pk.getWeaponUsed().getName());
         weaponKills.put(pk.getKiller().getName(), oldWeaponKillNum+1);
