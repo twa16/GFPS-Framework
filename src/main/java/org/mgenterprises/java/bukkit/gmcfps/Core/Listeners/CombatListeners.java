@@ -26,15 +26,22 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.ScoreManager;
 
 /**
  *
  * @author Manuel Gauto
  */
 public class CombatListeners implements Listener{
+    private FPSCore core;
+    
+    public CombatListeners(FPSCore core){
+        this.core = core;
+    }
     
     @EventHandler
     public void onPlayerDeathEvent(PlayerDeathEvent event){
-        
+        ScoreManager scoreManager = core.getScoreManager();
     }
 }

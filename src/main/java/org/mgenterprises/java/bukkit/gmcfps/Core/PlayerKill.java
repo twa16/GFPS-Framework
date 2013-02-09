@@ -28,7 +28,8 @@ import org.bukkit.entity.Player;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
- *
+ * Object used to carry information about a
+ * particular kill.
  * @author Manuel Gauto
  */
 public class PlayerKill {
@@ -37,6 +38,13 @@ public class PlayerKill {
     private Player killer;
     private Location location;
     
+    /**
+     * Default constructor
+     * @param weapon Weapon used to kill the victim
+     * @param victim Player killed
+     * @param killer Player who killed
+     * @param loc Location of death
+     */
     public PlayerKill(Weapon weapon, Player victim, Player killer, Location loc){
         this.weaponUsed = weapon;
         this.victim = victim;
@@ -44,18 +52,34 @@ public class PlayerKill {
         this.location = loc;
     }
     
+    /**
+     * Get the {@link Weapon} used to kill the {@link Player}
+     * @return 
+     */
     public Weapon getWeaponUsed(){
         return this.weaponUsed;
     }
     
+    /**
+     * Get the {@link Player} that was killed
+     * @return Player that was killed
+     */
     public Player getVictim(){
         return this.victim;
     }
     
+    /**
+     * Get the {@link Player} that killed the victim
+     * @return 
+     */
     public Player getKiller(){
         return this.killer;
     }
     
+    /**
+     * Get the {@link Location} where the {@link Player} was killed
+     * @return 
+     */
     public Location getKillLocation(){
         return this.location;
     }

@@ -24,11 +24,28 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
 import java.util.HashMap;
+import org.mgenterprises.java.bukkit.gmcfps.Core.PlayerKill;
 
 /**
- *
+ * Manages scores for the games.
  * @author Manuel Gauto
  */
 public class ScoreManager {
     private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
+    
+    /**
+     * Register a kill using a {@link PlayerKill} object
+     * @param pk PlayerKill reference, usually produced by {@link CombatListeners}
+     */
+    public void registerKill(PlayerKill pk){
+        String killerName = pk.getKiller().getName();
+        PlayerStats killerStats = stats.get(killerName);
+        killerStats.registerKill(pk);
+        this.stats.put(killerName, killerStats);
+        
+        String victimName = pk.getVictim().getName();
+        PlayerStats victimStats = stats.get(victimName);
+        victimStats.registerDeath();
+        this.stats.put(victimName, victimStats);
+    }
 }

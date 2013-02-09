@@ -28,5 +28,13 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
  * @author Manuel Gauto
  */
 public abstract class Weapon {
+    private String name;
     
+    public Weapon(String weaponName){
+        this.name = weaponName;
+    }
+    
+    public String getName(){
+        return this.name;
+    }
 }

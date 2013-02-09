@@ -23,18 +23,46 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashMap;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
+import org.mgenterprises.java.bukkit.gmcfps.Core.PlayerKill;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class PlayerStats {
+public class PlayerStats implements Serializable{
     private int deaths = 0;
     private int kills = 0;
-    private double killDeathRatio;
-    private HashMap<Weapon, Integer> weaponKills = new HashMap<Weapon, Integer>();
+    private HashMap<String, Integer> weaponKills = new HashMap<String, Integer>();
    
+    public int getDeaths(){
+        return this.deaths;
+    }
     
+    public int getKills(){
+        return this.kills;
+    }
+    
+    public void registerKill(PlayerKill pk){
+        this.kills++;
+        int oldWeaponKillNum = this.weaponKills.get(pk.getWeaponUsed().getName());
+        weaponKills.put(pk.getKiller().getName(), oldWeaponKillNum+1);
+    }
+    
+    public void registerDeath(){
+        this.deaths++;
+    }
+    
+    public double getKillDeathRatio(){
+        double kd = (float)kills/deaths;
+        return round(kd, 2);
+    }
+    
+    public static double round(double d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(d);
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.doubleValue();
+    }
 }

@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core;
+package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class NewClass {
+public class WeaponManager {
     
 }
