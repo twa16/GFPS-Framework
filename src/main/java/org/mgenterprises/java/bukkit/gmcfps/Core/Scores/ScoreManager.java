@@ -25,12 +25,13 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
 import java.util.HashMap;
+import org.mgenterprises.java.bukkit.gmcfps.Core.BukkitListeners.CombatListeners;
 
 /**
  * Manages scores for the games.
  * @author Manuel Gauto
  */
-public class ScoreManager {
+public class ScoreManager{
     private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
     
     /**

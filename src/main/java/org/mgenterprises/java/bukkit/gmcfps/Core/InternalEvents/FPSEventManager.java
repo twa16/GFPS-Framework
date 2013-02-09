@@ -28,5 +28,9 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
  * @author Manuel Gauto
  */
 public class FPSEventManager {
+    private PlayerKilledByPlayerSource playerKilledSource = new PlayerKilledByPlayerSource();
     
+    public PlayerKilledByPlayerSource getPlayerKilledSource(){
+        return this.playerKilledSource;
+    }
 }

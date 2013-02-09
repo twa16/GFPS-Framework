@@ -56,13 +56,14 @@ public class CombatListeners implements Listener {
             if (killer instanceof Player && victim instanceof Player) {
                 Player pKiller = (Player) killer;
                 Player pVictim = (Player) victim;
-                fire(pKiller, pVictim);
+                firePlayerKilledByPlayerEvent(pKiller, pVictim);
             }
         }
     }
 
-    private void processPlayerKill(Player killer, Player victim) {
-        ScoreManager scoreManager = core.getScoreManager();
+    private void firePlayerKilledByPlayerEvent(Player killer, Player victim) {
         Weapon w = core.getWeaponManager().getWeaponByName(killer.getItemInHand().getType().name());
+        
+        
     }
 }
