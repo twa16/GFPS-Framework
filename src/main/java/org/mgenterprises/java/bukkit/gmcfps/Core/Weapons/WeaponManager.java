@@ -28,5 +28,7 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
  * @author Manuel Gauto
  */
 public class WeaponManager {
-    
+
+    public Weapon getWeaponByName(String name) {
+    }
 }
