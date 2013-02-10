@@ -38,6 +38,7 @@
                 <directory>src/main/java/</directory>
                 <includes>
                     <include>plugin.yml</include>
+                    <include>exampleGameConfig.yml</include>
                 </includes>
             </resource>
         </resources>
