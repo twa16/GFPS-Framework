@@ -25,15 +25,19 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.WeaponFiredListener;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class WeaponManager {
+public class WeaponManager implements WeaponFiredListener {
     private HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
     public ArrayList<String> waiting = new ArrayList<String>();
     private FPSCore fpsCore;
@@ -67,6 +71,16 @@ public class WeaponManager {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onWeaponFiredEvent(WeaponFiredEvent event) {
+        Player player = event.getPlayer();
+        Weapon weapon = event.getWeaponUsed();
+        //Location location = event.getLocation(); //May never be used?
+        
+        String playerName = player.getName();
+        String weaponName = weapon.getName();
     }
     
     

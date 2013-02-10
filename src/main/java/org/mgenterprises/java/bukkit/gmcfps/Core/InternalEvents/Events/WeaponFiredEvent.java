@@ -45,7 +45,7 @@ public class WeaponFiredEvent extends EventObject {
      * @param player
      * @param location
      */
-    public WeaponFiredEvent(Object source,Weapon weapon,Player player, Location location){
+    public WeaponFiredEvent(Object source, Weapon weapon, Player player, Location location){
         super(source);
         this.weaponUsed = weapon;
         this.player = player;
