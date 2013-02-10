@@ -26,6 +26,7 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.Material;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.WeaponFiredListener;
@@ -76,4 +77,16 @@ public class WeaponManager implements WeaponFiredListener {
         Weapon weapon = event.getWeaponUsed();
         weapon.onWeaponRightClick(event);
     }
+
+    public void processProjectile(EntityDamageByEntityEvent event){
+        for(Weapon w : weapons.values()){
+            if(w.isProjectile()){
+                ProjectileWeapon pw = (ProjectileWeapon) w;
+                if(pw.getProjectileType() == event.getEntityType()){
+                    pw.onProjectileHit(event);
+                }
+            }
+        }
+    }
 }
+

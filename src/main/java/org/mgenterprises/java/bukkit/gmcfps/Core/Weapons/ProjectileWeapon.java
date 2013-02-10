@@ -25,7 +25,9 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
 
@@ -36,12 +38,14 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFir
 public abstract class ProjectileWeapon extends Weapon {
 
     private Material ammoMaterial;
+    private EntityType projectileType;
     private int fireDelay;
 
-    public ProjectileWeapon(WeaponManager wm, String name, Material m, Material ammoType, int fireDelay) {
+    public ProjectileWeapon(WeaponManager wm, String name, Material m, Material ammoType, EntityType projectileType, int fireDelay) {
         super(wm, name, m);
         this.ammoMaterial = ammoType;
         this.fireDelay = fireDelay;
+        this.projectileType = projectileType;
     }
 
     public Material getAmmunitionType() {
@@ -74,6 +78,12 @@ public abstract class ProjectileWeapon extends Weapon {
         return true;
     }
 
+    public EntityType getProjectileType(){
+        return this.projectileType;
+    }
+    
+    public abstract void onProjectileHit(EntityDamageByEntityEvent event);
+    
     private void scheduleDelay(Player p) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(super.getWeaponManager().getFPSCore().getPluginReference(), new DelayRunnable(super.getWeaponManager().getFPSCore(), p), this.fireDelay);
     }
