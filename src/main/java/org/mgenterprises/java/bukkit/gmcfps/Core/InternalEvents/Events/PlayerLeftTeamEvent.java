@@ -21,59 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events;
 
+import java.util.EventObject;
 import org.bukkit.entity.Player;
-import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.Team;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class Game {
-    private String name;
-    private FPSCore core;
-    private int maxSize = 25;
+public class PlayerLeftTeamEvent extends EventObject{
+    private Team teamLeft;
+    private Player p;
+    private Game game;
     
-    public Game(String name){
-        this.name = name;
-        this.core = new FPSCore(this);
+    public PlayerLeftTeamEvent(Object source, Player player, Team team, Game game){
+        super(source);
+        this.teamLeft = team;
+        this.p = player;
+        this.game = game;
     }
     
-    public String getName(){
-        return this.name;
+    public Game getGame(){
+        return this.game;
     }
     
-    public int getSize(){
-        return this.core.getTeamManager().getAllPlayers().length;
+    public Team getTeamLeft(){
+        return this.teamLeft;
     }
     
-    public void setMaxSize(int numPlayers){
-        this.maxSize = numPlayers;
-    }
-    
-    public int getMaxSize(){
-        return this.maxSize;
-    }
-    
-    public boolean isJoinable(){
-        if(getSize()<maxSize){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    
-    public boolean registerPlayer(Player p){
-        if(isJoinable()){
-            core.getTeamManager().registerPlayer(p);
-            return true;
-        }
-        return false;
-    }
-    
-    public void unregisterPlayer(Player p){
-        core.getTeamManager().unregisterPlayer(p);
+    public Player getPlayer(){
+        return this.p;
     }
 }

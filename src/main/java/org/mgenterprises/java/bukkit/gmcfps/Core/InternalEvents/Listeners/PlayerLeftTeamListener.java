@@ -21,59 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners;
 
-import org.bukkit.entity.Player;
-import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerLeftTeamEvent;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class Game {
-    private String name;
-    private FPSCore core;
-    private int maxSize = 25;
-    
-    public Game(String name){
-        this.name = name;
-        this.core = new FPSCore(this);
-    }
-    
-    public String getName(){
-        return this.name;
-    }
-    
-    public int getSize(){
-        return this.core.getTeamManager().getAllPlayers().length;
-    }
-    
-    public void setMaxSize(int numPlayers){
-        this.maxSize = numPlayers;
-    }
-    
-    public int getMaxSize(){
-        return this.maxSize;
-    }
-    
-    public boolean isJoinable(){
-        if(getSize()<maxSize){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    
-    public boolean registerPlayer(Player p){
-        if(isJoinable()){
-            core.getTeamManager().registerPlayer(p);
-            return true;
-        }
-        return false;
-    }
-    
-    public void unregisterPlayer(Player p){
-        core.getTeamManager().unregisterPlayer(p);
-    }
+public interface PlayerLeftTeamListener {
+    public void onPlayerLeftTeamEvent(PlayerLeftTeamEvent event);
 }

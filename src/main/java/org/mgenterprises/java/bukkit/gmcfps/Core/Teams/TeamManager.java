@@ -26,6 +26,11 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Teams;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.bukkit.entity.Player;
+import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerJoinedTeamEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerLeftTeamEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerJoinedTeamSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerLeftTeamSource;
 
 /**
  *
@@ -34,7 +39,12 @@ import org.bukkit.entity.Player;
 public class TeamManager {
 
     ArrayList<Team> teams = new ArrayList<Team>();
-
+    private FPSCore core;
+    
+    public TeamManager(FPSCore core){
+        this.core = core;
+    }
+    
     private int maxTeamSize;
     
     public void registerTeam(Team team) {
@@ -86,6 +96,9 @@ public class TeamManager {
     public Team registerPlayer(Player p){
         Team t = getSmallestTeam();
         t.addMember(p);
+        PlayerJoinedTeamSource source = core.getEventManager().getPlayerJoinedTeamSource();
+        PlayerJoinedTeamEvent event = new PlayerJoinedTeamEvent(source, p, t, core.getGameReference());
+        source.fireEvent(event);
         return t;
     }
     
@@ -93,6 +106,9 @@ public class TeamManager {
         for(Team t : teams){
             if(t.isMember(p)){
                 t.removeMember(p);
+                PlayerLeftTeamSource source = core.getEventManager().getPlayerLeftTeamSource();
+                PlayerLeftTeamEvent event = new PlayerLeftTeamEvent(source, p, t, core.getGameReference());
+                source.fireEvent(event);
             }
         }
     }

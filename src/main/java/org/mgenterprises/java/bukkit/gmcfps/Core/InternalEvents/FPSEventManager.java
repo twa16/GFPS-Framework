@@ -23,8 +23,10 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
 
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerKilledByPlayerSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerHurtByPlayerSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerJoinedTeamSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerKilledByPlayerSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerLeftTeamSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.WeaponFiredSource;
 
 /**
@@ -34,7 +36,9 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.WeaponFi
 public class FPSEventManager {
     private PlayerKilledByPlayerSource playerKilledSource = new PlayerKilledByPlayerSource();
     private PlayerHurtByPlayerSource playerHurtSource = new PlayerHurtByPlayerSource();
+    private PlayerJoinedTeamSource playerJoinedTeam = new PlayerJoinedTeamSource();
     private WeaponFiredSource wfs = new WeaponFiredSource();
+    private PlayerLeftTeamSource playerLeftTeam = new PlayerLeftTeamSource();
     
     public WeaponFiredSource getWeaponFiredSource(){
         return this.wfs;
@@ -46,5 +50,13 @@ public class FPSEventManager {
     
     public PlayerHurtByPlayerSource getPlayerHurtSource(){
         return this.playerHurtSource;
+    }
+    
+    public PlayerJoinedTeamSource getPlayerJoinedTeamSource(){
+        return this.playerJoinedTeam;
+    }
+    
+    public PlayerLeftTeamSource getPlayerLeftTeamSource(){
+        return this.playerLeftTeam;
     }
 }
