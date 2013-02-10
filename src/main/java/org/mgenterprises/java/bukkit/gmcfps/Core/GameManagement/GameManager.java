@@ -45,6 +45,10 @@ public class GameManager {
     public Game getGameByName(String name) {
         return this.games.get(name);
     }
+    
+    public void registerGame(Game g){
+        games.put(g.getName(), g);
+    }
 
     public void saveAllGames() {
         for (Game game : games.values()) {

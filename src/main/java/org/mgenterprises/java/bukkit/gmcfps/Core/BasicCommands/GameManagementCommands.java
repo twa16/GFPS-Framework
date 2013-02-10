@@ -73,7 +73,7 @@ public class GameManagementCommands implements CommandExecutor {
                     }
                 }
 
-                return false;
+                return true;
             }
             else{
                 cs.sendMessage(ChatColor.RED + "You do not have permission to do that!");
