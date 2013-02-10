@@ -21,7 +21,7 @@
     <distributionManagement>
         <repository>
             <id>mgenterprises</id>
-            <url>http://servers.mgenterprises.org:8081/nexus/content/repositories/mgenterprises</url>
+            <url>http://servers.mgenterprises.org:8081/nexus/content/repositories/snapshots</url>
         </repository>
     </distributionManagement>
 
