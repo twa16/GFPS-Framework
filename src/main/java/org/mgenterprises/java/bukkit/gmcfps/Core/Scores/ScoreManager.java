@@ -44,7 +44,6 @@ public class ScoreManager implements PlayerKilledByPlayerListener {
      */
     @Override
     public void onPlayerKilledByPlayerEvent(PlayerKilledByPlayerEvent event) {
-        //Dunno what to put here
         //lets start converting
         String killerName = event.getKiller().getName();
         PlayerStats killerStats = stats.get(killerName);

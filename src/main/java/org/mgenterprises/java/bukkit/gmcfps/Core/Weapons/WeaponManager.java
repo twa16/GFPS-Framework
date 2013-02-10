@@ -25,6 +25,7 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 
@@ -41,6 +42,18 @@ public class WeaponManager {
         return weapons.get(name);
     }
     
+    public Weapon getWeaponByType(Material m){
+        ArrayList<Weapon> weaponsArray = new ArrayList<Weapon>(weapons.values());
+        
+        for(Weapon w : weaponsArray){
+            if(m == w.getMaterial()){
+                return w;
+            }
+        }
+        
+        return null;
+    }
+    
     public FPSCore getFPSCore(){
         return this.fpsCore;
     }
@@ -55,4 +68,6 @@ public class WeaponManager {
             }
         }
     }
+    
+    
 }

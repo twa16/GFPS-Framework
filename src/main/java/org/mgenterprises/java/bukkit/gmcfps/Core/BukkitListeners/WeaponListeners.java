@@ -45,7 +45,7 @@ public class WeaponListeners implements Listener{
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent event){
         WeaponFiredSource source = core.getEventManager().getWeaponFiredSource();
-        Weapon w = core.getWeaponManager().getWeaponByName(event.getPlayer().getItemInHand().getType().name());
+        Weapon w = core.getWeaponManager().getWeaponByType(event.getPlayer().getItemInHand().getType());
         WeaponFiredEvent wfe = new WeaponFiredEvent(source, w, event.getPlayer(), event.getPlayer().getLocation());
         core.getEventManager().getWeaponFiredSource().fireEvent(wfe);
     }
