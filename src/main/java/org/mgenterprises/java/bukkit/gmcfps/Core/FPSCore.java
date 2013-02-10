@@ -36,43 +36,57 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
  * @author Manuel Gauto
  */
 public class FPSCore {
+
     private ScoreManager scoreManager = new ScoreManager(this);
     private WeaponManager weaponManager = new WeaponManager(this);
     private FPSEventManager eventManager = new FPSEventManager();
     private TeamManager teamManager = new TeamManager(this);
     private Game gameReference;
     private JavaPlugin plugin;
-    
-    public FPSCore(Game game){
+
+    public FPSCore(Game game) {
         this.gameReference = game;
+        init();
     }
-    
-    public JavaPlugin getPluginReference(){
+
+    public JavaPlugin getPluginReference() {
         return this.plugin;
     }
-    
-    public ScoreManager getScoreManager(){
+
+    public ScoreManager getScoreManager() {
         return this.scoreManager;
     }
-    
-    public FPSEventManager getEventManager(){
+
+    public FPSEventManager getEventManager() {
         return this.eventManager;
     }
-    
-    public WeaponManager getWeaponManager(){
+
+    public WeaponManager getWeaponManager() {
         return this.weaponManager;
     }
-    
-    public TeamManager getTeamManager(){
+
+    public TeamManager getTeamManager() {
         return this.teamManager;
     }
-    
-    public Game getGameReference(){
+
+    public Game getGameReference() {
         return this.gameReference;
     }
-    
-    public void registerPlayer(Player p){
+
+    public void registerPlayer(Player p) {
         teamManager.registerPlayer(p);
     }
-    
+
+    public void setFreeforall(boolean isFreeforall) {
+        if (isFreeforall) {
+            this.teamManager.setTeamEnable(false);
+        } else {
+            this.teamManager.setTeamEnable(true);
+        }
+    }
+
+    public final void init() {
+        getEventManager().getPlayerKilledSource().addEventListener(this.scoreManager);
+        getEventManager().getWeaponFiredSource().addEventListener(this.weaponManager);
+    }
 }

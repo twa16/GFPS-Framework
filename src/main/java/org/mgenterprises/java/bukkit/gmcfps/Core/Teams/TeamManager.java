@@ -38,17 +38,20 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerLe
  *
  * @author Manuel Gauto
  */
-public class TeamManager implements PlayerHurtByPlayerListener{
+public class TeamManager implements PlayerHurtByPlayerListener {
 
-    ArrayList<Team> teams = new ArrayList<Team>();
+    private ArrayList<Team> teams = new ArrayList<Team>();
     private FPSCore core;
-    
-    public TeamManager(FPSCore core){
+    private boolean teamsEnabled = false;
+
+    public TeamManager(FPSCore core) {
         this.core = core;
         core.getEventManager().getPlayerHurtSource().addEventListener(this);
     }
-    
-    private int maxTeamSize;
+
+    public void setTeamEnable(boolean status){
+        this.teamsEnabled = status;
+    }
     
     public void registerTeam(Team team) {
         this.teams.add(team);
@@ -77,26 +80,26 @@ public class TeamManager implements PlayerHurtByPlayerListener{
         Player[] template = new Player[players.size()];
         return players.toArray(template);
     }
-    
-    public Team getPlayerTeam(Player p){
-        for(Team t : teams){
-            if(t.isMember(p)){
+
+    public Team getPlayerTeam(Player p) {
+        for (Team t : teams) {
+            if (t.isMember(p)) {
                 return t;
             }
         }
         return null;
     }
-    
-    public boolean isParticipating(Player p){
-        for(Team t : teams){
-            if(t.isMember(p)){
+
+    public boolean isParticipating(Player p) {
+        for (Team t : teams) {
+            if (t.isMember(p)) {
                 return true;
             }
         }
         return false;
     }
-    
-    public Team registerPlayer(Player p){
+
+    public Team registerPlayer(Player p) {
         Team t = getSmallestTeam();
         t.addMember(p);
         PlayerJoinedTeamSource source = core.getEventManager().getPlayerJoinedTeamSource();
@@ -104,10 +107,10 @@ public class TeamManager implements PlayerHurtByPlayerListener{
         source.fireEvent(event);
         return t;
     }
-    
-    public void unregisterPlayer(Player p){
-        for(Team t : teams){
-            if(t.isMember(p)){
+
+    public void unregisterPlayer(Player p) {
+        for (Team t : teams) {
+            if (t.isMember(p)) {
                 t.removeMember(p);
                 PlayerLeftTeamSource source = core.getEventManager().getPlayerLeftTeamSource();
                 PlayerLeftTeamEvent event = new PlayerLeftTeamEvent(source, p, t, core.getGameReference());
@@ -115,23 +118,38 @@ public class TeamManager implements PlayerHurtByPlayerListener{
             }
         }
     }
-    
-    public Team getSmallestTeam(){
+
+    public Team getSmallestTeam() {
         Team smallest = teams.get(0);
         int smallestSize = smallest.size();
-        
-        for(Team t : teams){
-            if(t.size()<smallestSize){
+
+        for (Team t : teams) {
+            if (t.size() < smallestSize) {
                 smallest = t;
                 smallestSize = t.size();
             }
         }
-        
+
         return smallest;
+    }
+
+    public boolean canHurtEachother(Player p1, Player p2) {
+        Team p1t = this.getPlayerTeam(p1);
+        Team p2t = this.getPlayerTeam(p2);
+
+        if (p1t.getName().equals(p2t.getName())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public void onPlayerHurtByPlayerEvent(PlayerHurtByPlayerEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(this.teamsEnabled){
+            if(!canHurtEachother(event.getDamager(),event.getVictim())){
+                event.setCancelled(true);
+            }
+        }
     }
 }

@@ -38,7 +38,6 @@ public class ScoreManager implements PlayerKilledByPlayerListener {
     private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
 
     public ScoreManager(FPSCore core){
-        core.getEventManager().getPlayerKilledSource().addEventListener(this);
     }
     
     /**
