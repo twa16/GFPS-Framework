@@ -21,35 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.BukkitListeners;
+package org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.entity.Player;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.WeaponFiredSource;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class WeaponListeners implements Listener {
-
+public class Game {
+    private String name;
     private FPSCore core;
-
-    public WeaponListeners(FPSCore core) {
-        this.core = core;
+    private int maxSize = 25;
+    
+    public Game(String name){
+        this.name = name;
+        this.core = new FPSCore();
     }
-
-    @EventHandler
-    public void onPlayerInteractEvent(PlayerInteractEvent event) {
-        if (core.getTeamManager().isParticipating(event.getPlayer())) {
-            WeaponFiredSource source = core.getEventManager().getWeaponFiredSource();
-            Weapon w = core.getWeaponManager().getWeaponByType(event.getPlayer().getItemInHand().getType());
-            WeaponFiredEvent wfe = new WeaponFiredEvent(source, w, event.getPlayer(), event.getPlayer().getLocation());
-            core.getEventManager().getWeaponFiredSource().fireEvent(wfe);
+    
+    public String getName(){
+        return this.name;
+    }
+    
+    public int getSize(){
+        return this.core.getTeamManager().getAllPlayers().length;
+    }
+    
+    public void setMaxSize(int numPlayers){
+        this.maxSize = numPlayers;
+    }
+    
+    public int getMaxSize(){
+        return this.maxSize;
+    }
+    
+    public boolean isJoinable(){
+        if(getSize()<maxSize){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public boolean registerPlayer(Player p){
+        if(isJoinable()){
+            core.getTeamManager()
         }
     }
 }

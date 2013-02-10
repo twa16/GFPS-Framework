@@ -25,10 +25,7 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.WeaponFiredListener;
@@ -38,38 +35,41 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.Weapon
  * @author Manuel Gauto
  */
 public class WeaponManager implements WeaponFiredListener {
+
     private HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
     public ArrayList<String> waiting = new ArrayList<String>();
     private FPSCore fpsCore;
-    
+
     public Weapon getWeaponByName(String name) {
         return weapons.get(name);
     }
-    
-    public Weapon getWeaponByType(Material m){
+
+    public void registerWeapon(Weapon w) {
+        this.weapons.put(w.getName(), w);
+    }
+
+    public Weapon getWeaponByType(Material m) {
         ArrayList<Weapon> weaponsArray = new ArrayList<Weapon>(weapons.values());
-        
-        for(Weapon w : weaponsArray){
-            if(m == w.getMaterial()){
+
+        for (Weapon w : weaponsArray) {
+            if (m == w.getMaterial()) {
                 return w;
             }
         }
-        
+
         return null;
     }
-    
-    public FPSCore getFPSCore(){
+
+    public FPSCore getFPSCore() {
         return this.fpsCore;
     }
 
     @Override
     public void onWeaponFiredEvent(WeaponFiredEvent event) {
-        if(event.isCancelled()){
+        if (event.isCancelled()) {
             return;
         }
         Weapon weapon = event.getWeaponUsed();
         weapon.onWeaponRightClick(event);
     }
-    
-    
 }

@@ -23,9 +23,11 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.FPSEventManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.ScoreManager;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.TeamManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 
 /**
@@ -36,6 +38,8 @@ public class FPSCore {
     private ScoreManager scoreManager = new ScoreManager();
     private WeaponManager weaponManager = new WeaponManager();
     private FPSEventManager eventManager = new FPSEventManager();
+    private TeamManager teamManager = new TeamManager();
+    
     private JavaPlugin plugin;
     
     
@@ -54,4 +58,13 @@ public class FPSCore {
     public WeaponManager getWeaponManager(){
         return this.weaponManager;
     }
+    
+    public TeamManager getTeamManager(){
+        return this.teamManager;
+    }
+    
+    public void registerPlayer(Player p){
+        
+    }
+    
 }

@@ -23,10 +23,91 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Teams;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import org.bukkit.entity.Player;
+
 /**
  *
  * @author Manuel Gauto
  */
 public class TeamManager {
+
+    ArrayList<Team> teams = new ArrayList<Team>();
+
+    private int maxTeamSize;
     
+    public void registerTeam(Team team) {
+        this.teams.add(team);
+    }
+
+    public void unregisterTeam(Team t) {
+        this.teams.remove(t);
+    }
+
+    public Player[] getAllPlayers() {
+        ArrayList<Player> players = new ArrayList<Player>();
+        for (Team team : teams) {
+            players.addAll(Arrays.asList(team.getMembers()));
+        }
+        Player[] template = new Player[players.size()];
+        return players.toArray(template);
+    }
+
+    public Player[] getAllPlayersOnTeam(Team team) {
+        ArrayList<Player> players = new ArrayList<Player>();
+        for (Team t : teams) {
+            if (team.getName().equals(t.getName())) {
+                players.addAll(Arrays.asList(team.getMembers()));
+            }
+        }
+        Player[] template = new Player[players.size()];
+        return players.toArray(template);
+    }
+    
+    public Team getPlayerTeam(Player p){
+        for(Team t : teams){
+            if(t.isMember(p)){
+                return t;
+            }
+        }
+        return null;
+    }
+    
+    public boolean isParticipating(Player p){
+        for(Team t : teams){
+            if(t.isMember(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Team registerPlayer(Player p){
+        Team t = getSmallestTeam();
+        t.addMember(p);
+        return t;
+    }
+    
+    public void unregisterPlayer(Player p){
+        for(Team t : teams){
+            if(t.isMember(p)){
+                t.removeMember(p);
+            }
+        }
+    }
+    
+    public Team getSmallestTeam(){
+        Team smallest = teams.get(0);
+        int smallestSize = smallest.size();
+        
+        for(Team t : teams){
+            if(t.size()<smallestSize){
+                smallest = t;
+                smallestSize = t.size();
+            }
+        }
+        
+        return smallest;
+    }
 }

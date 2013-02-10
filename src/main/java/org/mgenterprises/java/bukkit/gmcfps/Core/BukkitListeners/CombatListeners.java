@@ -51,14 +51,19 @@ public class CombatListeners implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
+
         EntityDamageEvent ede = event.getEntity().getLastDamageCause();
         if (ede instanceof EntityDamageByEntityEvent) {
             Entity killer = ((EntityDamageByEntityEvent) ede).getDamager();
             Entity victim = ((EntityDamageByEntityEvent) ede).getEntity();
+
+
             if (killer instanceof Player && victim instanceof Player) {
                 Player pKiller = (Player) killer;
                 Player pVictim = (Player) victim;
-                firePlayerKilledByPlayerEvent(pKiller, pVictim);
+                if (core.getTeamManager().isParticipating(pVictim) && core.getTeamManager().isParticipating(pKiller)) {
+                    firePlayerKilledByPlayerEvent(pKiller, pVictim);
+                }
             }
         }
     }
@@ -66,10 +71,14 @@ public class CombatListeners implements Listener {
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
-            PlayerHurtByPlayerSource source = core.getEventManager().getPlayerHurtSource();
-            Weapon w = core.getWeaponManager().getWeaponByType(((Player) event.getDamager()).getItemInHand().getType());
-            PlayerHurtByPlayerEvent phpe = new PlayerHurtByPlayerEvent(source, w, event);
-            source.fireEvent(phpe);
+            Player pKiller = (Player) event.getDamager();
+            Player pVictim = (Player) event.getEntity();
+            if (core.getTeamManager().isParticipating(pVictim) && core.getTeamManager().isParticipating(pKiller)) {
+                PlayerHurtByPlayerSource source = core.getEventManager().getPlayerHurtSource();
+                Weapon w = core.getWeaponManager().getWeaponByType(((Player) event.getDamager()).getItemInHand().getType());
+                PlayerHurtByPlayerEvent phpe = new PlayerHurtByPlayerEvent(source, w, event);
+                source.fireEvent(phpe);
+            }
         }
     }
 
@@ -77,6 +86,8 @@ public class CombatListeners implements Listener {
         Weapon w = core.getWeaponManager().getWeaponByName(killer.getItemInHand().getType().name());
         PlayerKilledByPlayerSource source = core.getEventManager().getPlayerKilledSource();
         PlayerKilledByPlayerEvent pkpe = new PlayerKilledByPlayerEvent(source, w, victim, killer, victim.getLocation());
-        source.fireEvent(pkpe);
+        if (core.getTeamManager().isParticipating(victim) && core.getTeamManager().isParticipating(killer)) {
+            source.fireEvent(pkpe);
+        }
     }
 }

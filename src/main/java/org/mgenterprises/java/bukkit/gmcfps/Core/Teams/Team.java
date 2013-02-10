@@ -21,35 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.BukkitListeners;
+package org.mgenterprises.java.bukkit.gmcfps.Core.Teams;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.WeaponFiredSource;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
+import java.util.ArrayList;
+import org.bukkit.entity.Player;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class WeaponListeners implements Listener {
-
-    private FPSCore core;
-
-    public WeaponListeners(FPSCore core) {
-        this.core = core;
+public class Team {
+    private ArrayList<Player> members = new ArrayList<Player>();
+    private String name;
+    
+    public Team(String name){
+        this.name = name;
     }
-
-    @EventHandler
-    public void onPlayerInteractEvent(PlayerInteractEvent event) {
-        if (core.getTeamManager().isParticipating(event.getPlayer())) {
-            WeaponFiredSource source = core.getEventManager().getWeaponFiredSource();
-            Weapon w = core.getWeaponManager().getWeaponByType(event.getPlayer().getItemInHand().getType());
-            WeaponFiredEvent wfe = new WeaponFiredEvent(source, w, event.getPlayer(), event.getPlayer().getLocation());
-            core.getEventManager().getWeaponFiredSource().fireEvent(wfe);
-        }
+    
+    public String getName(){
+        return this.name;
+    }
+    
+    public void addMember(Player p){
+        this.members.add(p);
+    }
+    
+    public void removeMember(Player p){
+        this.members.remove(p);
+    }
+    
+    public boolean isMember(Player p){
+        return this.members.contains(p);
+    }
+    
+    public Player[] getMembers(){
+        Player[] template = new Player[members.size()];
+        return members.toArray(template);
+    }
+    
+    public int size(){
+        return this.members.size();
     }
 }
