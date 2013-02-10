@@ -21,36 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources;
 
-import java.util.ArrayList;
 import java.util.EventObject;
-import java.util.Iterator;
-import java.util.List;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerHurtByPlayerEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerHurtByPlayerListener;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class PlayerHurtByPlayerSource extends FPSEventSource{
-
-    private List _listeners = new ArrayList();
-
-    public synchronized void addEventListener(PlayerHurtByPlayerListener listener) {
-        _listeners.add(listener);
-    }
-
-    public synchronized void removeEventListener(PlayerHurtByPlayerListener listener) {
-        _listeners.remove(listener);
-    }
-    @Override
-    public void fireEvent(EventObject event) {
-        PlayerHurtByPlayerEvent e = (PlayerHurtByPlayerEvent) event;
-        Iterator i = _listeners.iterator();
-        while (i.hasNext()) {
-            ((PlayerHurtByPlayerListener) i.next()).onPlayerHurtByPlayerEvent(e);
-        }
-    }
+public abstract class FPSEventSource {
+    public abstract void fireEvent(EventObject event);
 }

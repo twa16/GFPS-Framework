@@ -21,14 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners;
 
-import java.util.EventObject;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerJoinedTeamEvent;
 
 /**
  *
  * @author Manuel Gauto
  */
-public abstract class FPSEventSource {
-    public abstract void fireEvent(EventObject event);
+public interface PlayerJoinedTeamListener {
+    public void onPlayerJoinedTeamEvent(PlayerJoinedTeamEvent event);
 }

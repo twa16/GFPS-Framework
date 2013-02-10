@@ -67,7 +67,7 @@ public class Game {
     
     public boolean registerPlayer(Player p){
         if(isJoinable()){
-            core.getTeamManager()
+            core.getTeamManager().registerPlayer(p);
         }
     }
 }

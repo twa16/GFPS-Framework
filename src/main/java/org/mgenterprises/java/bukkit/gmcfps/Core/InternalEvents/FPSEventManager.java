@@ -23,6 +23,10 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
 
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerKilledByPlayerSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerHurtByPlayerSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.WeaponFiredSource;
+
 /**
  *
  * @author Manuel Gauto

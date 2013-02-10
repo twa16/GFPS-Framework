@@ -21,35 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.BukkitListeners;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.WeaponFiredSource;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
+import java.util.ArrayList;
+import java.util.EventObject;
+import java.util.Iterator;
+import java.util.List;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerKilledByPlayerListener;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class WeaponListeners implements Listener {
+public class PlayerKilledByPlayerSource extends FPSEventSource{
 
-    private FPSCore core;
+    private List _listeners = new ArrayList();
 
-    public WeaponListeners(FPSCore core) {
-        this.core = core;
+    public synchronized void addEventListener(PlayerKilledByPlayerListener listener) {
+        _listeners.add(listener);
     }
 
-    @EventHandler
-    public void onPlayerInteractEvent(PlayerInteractEvent event) {
-        if (core.getTeamManager().isParticipating(event.getPlayer())) {
-            WeaponFiredSource source = core.getEventManager().getWeaponFiredSource();
-            Weapon w = core.getWeaponManager().getWeaponByType(event.getPlayer().getItemInHand().getType());
-            WeaponFiredEvent wfe = new WeaponFiredEvent(source, w, event.getPlayer(), event.getPlayer().getLocation());
-            core.getEventManager().getWeaponFiredSource().fireEvent(wfe);
+    public synchronized void removeEventListener(PlayerKilledByPlayerListener listener) {
+        _listeners.remove(listener);
+    }
+    @Override
+    public void fireEvent(EventObject event) {
+        PlayerKilledByPlayerEvent e = (PlayerKilledByPlayerEvent) event;
+        Iterator i = _listeners.iterator();
+        while (i.hasNext()) {
+            ((PlayerKilledByPlayerListener) i.next()).onPlayerKilledByPlayerEvent(e);
         }
     }
 }

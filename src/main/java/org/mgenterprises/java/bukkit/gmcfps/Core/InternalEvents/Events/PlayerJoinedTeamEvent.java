@@ -21,49 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events;
 
+import java.util.EventObject;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.FPSEventManager;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.ScoreManager;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.TeamManager;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
+import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.Team;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class FPSCore {
-    private ScoreManager scoreManager = new ScoreManager();
-    private WeaponManager weaponManager = new WeaponManager();
-    private FPSEventManager eventManager = new FPSEventManager();
-    private TeamManager teamManager = new TeamManager();
+public class PlayerJoinedTeamEvent extends EventObject{
+    private Team teamJoined;
+    private Player p;
+    private Game game;
     
-    private JavaPlugin plugin;
-    
-    public JavaPlugin getPluginReference(){
-        return this.plugin;
+    public PlayerJoinedTeamEvent(Object source, Player player, Team team, Game game){
+        super(source);
+        this.teamJoined = team;
+        this.p = player;
+        this.game = game;
     }
     
-    public ScoreManager getScoreManager(){
-        return this.scoreManager;
+    public Game getGame(){
+        return this.game;
     }
     
-    public FPSEventManager getEventManager(){
-        return this.eventManager;
+    public Team getTeamJoined(){
+        return this.teamJoined;
     }
     
-    public WeaponManager getWeaponManager(){
-        return this.weaponManager;
-    }
-    
-    public TeamManager getTeamManager(){
-        return this.teamManager;
-    }
-    
-    public void registerPlayer(Player p){
-        teamManager.registerPlayer(p);
+    public Player getPlayer(){
+        return this.p;
     }
     
 }

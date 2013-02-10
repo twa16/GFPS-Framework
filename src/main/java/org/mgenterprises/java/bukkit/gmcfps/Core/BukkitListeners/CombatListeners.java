@@ -33,8 +33,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerHurtByPlayerEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.PlayerHurtByPlayerSource;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.PlayerKilledByPlayerSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerHurtByPlayerSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerKilledByPlayerSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
