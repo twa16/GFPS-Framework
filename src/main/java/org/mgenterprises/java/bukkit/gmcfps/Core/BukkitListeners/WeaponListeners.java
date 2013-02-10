@@ -21,38 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
+package org.mgenterprises.java.bukkit.gmcfps.Core.BukkitListeners;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.WeaponFiredSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class WeaponManager {
-    private HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
-    public ArrayList<String> waiting = new ArrayList<String>();
-    private FPSCore fpsCore;
+public class WeaponListeners implements Listener{
+    private FPSCore core;
     
-    public Weapon getWeaponByName(String name) {
-        return weapons.get(name);
+    public WeaponListeners(FPSCore core){
+        this.core = core;
     }
     
-    public FPSCore getFPSCore(){
-        return this.fpsCore;
-    }
-    
-    public void onPlayerInteract(PlayerInteractEvent event){
-        ArrayList<Weapon> weaponsArray = new ArrayList<Weapon>(weapons.values());
-        
-        for(Weapon w : weaponsArray){
-            if(event.getItem().getType() == w.getMaterial()){
-                w.onWeaponRightClick(event);
-                break;
-            }
-        }
+    @EventHandler
+    public void onPlayerInteractEvent(PlayerInteractEvent event){
+        WeaponFiredSource source = core.getEventManager().getWeaponFiredSource();
+        Weapon w = core.getWeaponManager().getWeaponByName(event.getPlayer().getItemInHand().getType().name());
+        WeaponFiredEvent wfe = new WeaponFiredEvent(source, w, event.getPlayer(), event.getPlayer().getLocation());
+        core.getEventManager().getWeaponFiredSource().fireEvent(wfe);
     }
 }
