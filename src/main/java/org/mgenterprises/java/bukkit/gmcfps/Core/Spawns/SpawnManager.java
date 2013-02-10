@@ -32,4 +32,5 @@ import org.bukkit.Location;
  */
 public class SpawnManager {
     ArrayList<Location> spawns = new ArrayList<Location>();
+    
 }

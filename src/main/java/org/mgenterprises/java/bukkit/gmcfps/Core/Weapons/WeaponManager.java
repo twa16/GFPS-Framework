@@ -40,6 +40,11 @@ public class WeaponManager implements WeaponFiredListener {
     public ArrayList<String> waiting = new ArrayList<String>();
     private FPSCore fpsCore;
 
+    public WeaponManager(FPSCore core){
+        this.fpsCore = core;
+        core.getEventManager().getWeaponFiredSource().addEventListener(this);
+    }
+    
     public Weapon getWeaponByName(String name) {
         return weapons.get(name);
     }

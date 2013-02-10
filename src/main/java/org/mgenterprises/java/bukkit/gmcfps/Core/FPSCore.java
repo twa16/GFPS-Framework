@@ -36,8 +36,8 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
  * @author Manuel Gauto
  */
 public class FPSCore {
-    private ScoreManager scoreManager = new ScoreManager();
-    private WeaponManager weaponManager = new WeaponManager();
+    private ScoreManager scoreManager = new ScoreManager(this);
+    private WeaponManager weaponManager = new WeaponManager(this);
     private FPSEventManager eventManager = new FPSEventManager();
     private TeamManager teamManager = new TeamManager(this);
     private Game gameReference;

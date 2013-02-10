@@ -27,8 +27,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import org.bukkit.entity.Player;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerHurtByPlayerEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerJoinedTeamEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerLeftTeamEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerHurtByPlayerListener;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerJoinedTeamSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerLeftTeamSource;
 
@@ -36,13 +38,14 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerLe
  *
  * @author Manuel Gauto
  */
-public class TeamManager {
+public class TeamManager implements PlayerHurtByPlayerListener{
 
     ArrayList<Team> teams = new ArrayList<Team>();
     private FPSCore core;
     
     public TeamManager(FPSCore core){
         this.core = core;
+        core.getEventManager().getPlayerHurtSource().addEventListener(this);
     }
     
     private int maxTeamSize;
@@ -125,5 +128,10 @@ public class TeamManager {
         }
         
         return smallest;
+    }
+
+    @Override
+    public void onPlayerHurtByPlayerEvent(PlayerHurtByPlayerEvent event) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -23,8 +23,8 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
-import java.lang.annotation.Documented;
 import java.util.HashMap;
+import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerKilledByPlayerListener;
 
@@ -37,6 +37,10 @@ public class ScoreManager implements PlayerKilledByPlayerListener {
 
     private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
 
+    public ScoreManager(FPSCore core){
+        core.getEventManager().getPlayerKilledSource().addEventListener(this);
+    }
+    
     /**
      * Override method for PlayerKilledByPlayerEvent
      *
