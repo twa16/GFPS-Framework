@@ -28,6 +28,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.FPSEventManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.ScoreManager;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Spawns.SpawnManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.TeamManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 
@@ -41,12 +42,25 @@ public class FPSCore {
     private WeaponManager weaponManager = new WeaponManager(this);
     private FPSEventManager eventManager = new FPSEventManager();
     private TeamManager teamManager = new TeamManager(this);
+    private SpawnManager spawnManager = new SpawnManager(this);
     private Game gameReference;
     private JavaPlugin plugin;
 
     public FPSCore(Game game) {
         this.gameReference = game;
         init();
+    }
+
+    public void registerPlayer(Player p) {
+        teamManager.registerPlayer(p);
+    }
+
+    public void setFreeforall(boolean isFreeforall) {
+        if (isFreeforall) {
+            this.teamManager.setTeamEnable(false);
+        } else {
+            this.teamManager.setTeamEnable(true);
+        }
     }
 
     public JavaPlugin getPluginReference() {
@@ -73,16 +87,8 @@ public class FPSCore {
         return this.gameReference;
     }
 
-    public void registerPlayer(Player p) {
-        teamManager.registerPlayer(p);
-    }
-
-    public void setFreeforall(boolean isFreeforall) {
-        if (isFreeforall) {
-            this.teamManager.setTeamEnable(false);
-        } else {
-            this.teamManager.setTeamEnable(true);
-        }
+    public SpawnManager getSpawnManager() {
+        return this.spawnManager;
     }
 
     public final void init() {

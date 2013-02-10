@@ -21,43 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement;
+package org.mgenterprises.java.bukkit.gmcfps.Core.Exceptions;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Configuration.ConfigurationManager;
+import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class GameManager {
-
-    HashMap<String, Game> games = new HashMap<String, Game>();
-    private ConfigurationManager configManager;
-
-    public GameManager(JavaPlugin plugin) {
-        configManager = new ConfigurationManager(plugin);
-    }
-
-    public Game getGameByName(String name) {
-        return this.games.get(name);
-    }
-
-    public void saveAllGames() {
-        for (Game game : games.values()) {
-            configManager.saveGameConfig(game);
-        }
-    }
-    
-    public void loadAllGames(){
-        ArrayList<File> gameFilesLoaded = configManager.getGameConfigurationFiles();
-        
-        for(File f : gameFilesLoaded){
-            Game g = configManager.processGameConfigurationFile(f);
-            games.put(g.getName(), g);
-        }
+public class LobbyNotDefinedException extends Exception{
+    public static final String DEFAULT_MESSAGE="The lobby for Game";
+    public LobbyNotDefinedException(Game game){
+        super("The lobby for Game '"+game.getName()+"' is not not defined");
     }
 }

@@ -24,13 +24,49 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Spawns;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Exceptions.LobbyNotDefinedException;
+import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerLeftTeamEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerLeftTeamListener;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class SpawnManager {
+public class SpawnManager implements PlayerLeftTeamListener{
     ArrayList<Location> spawns = new ArrayList<Location>();
+    private Location lobby;
+    private FPSCore core;
     
+    public SpawnManager(FPSCore core){
+        this.core = core;
+    }
+    
+    public void setLobby(Location newLobby){
+        this.lobby = newLobby;
+    }
+
+    private void checkForDefinedLobby() throws LobbyNotDefinedException{
+        if(lobby == null){
+            throw new LobbyNotDefinedException(core.getGameReference());
+        }
+    }
+    
+    @Override
+    public void onPlayerLeftTeamEvent(PlayerLeftTeamEvent event) {
+        try {
+            teleportToBaseSpawn(event.getPlayer());
+        } catch (LobbyNotDefinedException ex) {
+            Logger.getLogger(SpawnManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void teleportToBaseSpawn(Player p) throws LobbyNotDefinedException{
+        checkForDefinedLobby();
+        p.teleport(lobby);
+    }
 }

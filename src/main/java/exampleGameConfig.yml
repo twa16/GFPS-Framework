@@ -1,0 +1,7 @@
+Name: exampleGame
+ScoreCap: 10
+MaxSize: 25
+Freeforall: false
+Teams:
+  - Winners
+  - SomeOtherTeam

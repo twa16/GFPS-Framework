@@ -34,10 +34,15 @@ public class Game {
     private String name;
     private FPSCore core;
     private int maxSize = 25;
+    private int scoreCap = 30;
     
     public Game(String name){
         this.name = name;
         this.core = new FPSCore(this);
+    }
+    
+    public FPSCore getFPSCore(){
+        return this.core;
     }
     
     public String getName(){
@@ -75,5 +80,13 @@ public class Game {
     
     public void unregisterPlayer(Player p){
         core.getTeamManager().unregisterPlayer(p);
+    }
+    
+    public int getScoreCap(){
+        return this.scoreCap;
+    }
+    
+    public void setScoreCap(int cap){
+        this.scoreCap = cap;
     }
 }

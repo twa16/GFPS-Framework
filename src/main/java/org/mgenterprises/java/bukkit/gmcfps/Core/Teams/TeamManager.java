@@ -53,6 +53,24 @@ public class TeamManager implements PlayerHurtByPlayerListener {
         this.teamsEnabled = status;
     }
     
+    public void setFreeForAll(boolean isFreeForAll){
+        if(isFreeForAll){
+            teamsEnabled = false;
+        }
+        else{
+            teamsEnabled = true;
+        }
+    }
+    
+    public boolean isFreeForAll(){
+        if(this.teamsEnabled){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
     public void registerTeam(Team team) {
         this.teams.add(team);
     }
@@ -133,6 +151,10 @@ public class TeamManager implements PlayerHurtByPlayerListener {
         return smallest;
     }
 
+    public ArrayList<Team> getAllTeams(){
+        return this.teams;
+    }
+    
     public boolean canHurtEachother(Player p1, Player p2) {
         Team p1t = this.getPlayerTeam(p1);
         Team p2t = this.getPlayerTeam(p2);
