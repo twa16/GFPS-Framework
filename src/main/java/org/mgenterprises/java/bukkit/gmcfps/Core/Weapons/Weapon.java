@@ -24,7 +24,7 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
 import org.bukkit.Material;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
 
 /**
  *
@@ -52,7 +52,7 @@ public abstract class Weapon {
         return this.wm;
     }
     
-    public abstract void onWeaponRightClick(PlayerInteractEvent event);
+    public abstract void onWeaponRightClick(WeaponFiredEvent event);
     
     public abstract boolean isThrowable();
     

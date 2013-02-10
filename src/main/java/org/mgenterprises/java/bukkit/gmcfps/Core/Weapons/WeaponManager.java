@@ -61,26 +61,14 @@ public class WeaponManager implements WeaponFiredListener {
     public FPSCore getFPSCore(){
         return this.fpsCore;
     }
-    
-    public void onPlayerInteract(PlayerInteractEvent event){
-        ArrayList<Weapon> weaponsArray = new ArrayList<Weapon>(weapons.values());
-        
-        for(Weapon w : weaponsArray){
-            if(event.getItem().getType() == w.getMaterial()){
-                w.onWeaponRightClick(event);
-                break;
-            }
-        }
-    }
 
     @Override
     public void onWeaponFiredEvent(WeaponFiredEvent event) {
-        Player player = event.getPlayer();
+        if(event.isCancelled()){
+            return;
+        }
         Weapon weapon = event.getWeaponUsed();
-        //Location location = event.getLocation(); //May never be used?
-        
-        String playerName = player.getName();
-        String weaponName = weapon.getName();
+        weapon.onWeaponRightClick(event);
     }
     
     

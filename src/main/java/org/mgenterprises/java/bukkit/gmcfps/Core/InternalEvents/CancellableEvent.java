@@ -21,33 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
+package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
 
-import org.bukkit.Material;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
+import java.util.EventObject;
+import org.bukkit.event.Cancellable;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class ThrowableWeapon extends Weapon{
-
-    public ThrowableWeapon(WeaponManager wm, String name, Material m){
-        super(wm, name, m);
+public abstract class CancellableEvent extends EventObject{
+    private boolean isCancelled = false;
+    private Cancellable triggerEvent;
+    public CancellableEvent(Object source){
+        super(source);
     }
-    @Override
-    public void onWeaponRightClick(WeaponFiredEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    public CancellableEvent(Object source, Cancellable triggerEvent){
+        super(source);
+        this.triggerEvent = triggerEvent;
     }
-
-    @Override
-    public boolean isThrowable() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    public boolean isCancelled(){
+        return isCancelled;
     }
-
-    @Override
-    public boolean isProjectile() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    public void setCancelled(boolean isCancelled){
+        this.isCancelled = isCancelled;
+        this.triggerEvent.setCancelled(isCancelled);
     }
     
 }

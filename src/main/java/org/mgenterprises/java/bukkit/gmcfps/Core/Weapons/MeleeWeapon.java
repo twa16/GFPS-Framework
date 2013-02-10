@@ -23,7 +23,8 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.Material;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
 
 /**
  *
@@ -31,19 +32,23 @@ import org.bukkit.event.player.PlayerInteractEvent;
  */
 public class MeleeWeapon extends Weapon{
 
+    public MeleeWeapon(WeaponManager wm, Material m){
+        super(wm, m.name(), m);
+    }
+    
     @Override
-    public void onWeaponRightClick(PlayerInteractEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void onWeaponRightClick(WeaponFiredEvent event) {
+        return;
     }
 
     @Override
     public boolean isThrowable() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public boolean isProjectile() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
     
 }

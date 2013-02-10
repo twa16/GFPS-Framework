@@ -26,8 +26,8 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
 
 /**
  *
@@ -51,7 +51,7 @@ public abstract class ProjectileWeapon extends Weapon {
     public abstract void onWeaponFire(Player p);
 
     @Override
-    public void onWeaponRightClick(PlayerInteractEvent event) {
+    public void onWeaponRightClick(WeaponFiredEvent event) {
         if(super.getWeaponManager().waiting.contains(event.getPlayer().getName())){
             return;
         }

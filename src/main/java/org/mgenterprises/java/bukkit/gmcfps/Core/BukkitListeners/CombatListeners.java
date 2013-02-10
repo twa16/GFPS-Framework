@@ -31,7 +31,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerHurtByPlayerEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.PlayerHurtByPlayerSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.PlayerKilledByPlayerSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
@@ -61,10 +63,20 @@ public class CombatListeners implements Listener {
         }
     }
 
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
+            PlayerHurtByPlayerSource source = core.getEventManager().getPlayerHurtSource();
+            Weapon w = core.getWeaponManager().getWeaponByType(((Player) event.getDamager()).getItemInHand().getType());
+            PlayerHurtByPlayerEvent phpe = new PlayerHurtByPlayerEvent(source, w, event);
+            source.fireEvent(phpe);
+        }
+    }
+
     private void firePlayerKilledByPlayerEvent(Player killer, Player victim) {
         Weapon w = core.getWeaponManager().getWeaponByName(killer.getItemInHand().getType().name());
         PlayerKilledByPlayerSource source = core.getEventManager().getPlayerKilledSource();
-        PlayerKilledByPlayerEvent pkpe = new PlayerKilledByPlayerEvent(source,w,victim,killer, victim.getLocation());
+        PlayerKilledByPlayerEvent pkpe = new PlayerKilledByPlayerEvent(source, w, victim, killer, victim.getLocation());
         source.fireEvent(pkpe);
     }
 }

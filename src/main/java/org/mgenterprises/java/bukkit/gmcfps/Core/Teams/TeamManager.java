@@ -21,33 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
-
-import org.bukkit.Material;
-import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
+package org.mgenterprises.java.bukkit.gmcfps.Core.Teams;
 
 /**
  *
  * @author Manuel Gauto
  */
-public class ThrowableWeapon extends Weapon{
-
-    public ThrowableWeapon(WeaponManager wm, String name, Material m){
-        super(wm, name, m);
-    }
-    @Override
-    public void onWeaponRightClick(WeaponFiredEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean isThrowable() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean isProjectile() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+public class TeamManager {
     
 }
