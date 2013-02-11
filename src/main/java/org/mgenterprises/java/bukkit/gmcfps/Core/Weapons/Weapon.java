@@ -38,6 +38,7 @@ public abstract class Weapon {
     public Weapon(WeaponManager wm, String weaponName, Material material){
         this.name = weaponName;
         this.material = material;
+        this.wm = wm;
     }
     
     public String getName(){

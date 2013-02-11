@@ -56,7 +56,7 @@ public abstract class ProjectileWeapon extends Weapon {
 
     @Override
     public void onWeaponRightClick(WeaponFiredEvent event) {
-        System.out.println(event);
+        //System.out.println(event);
         if(super.getWeaponManager().waiting.contains(event.getPlayer().getName())){
             return;
         }
