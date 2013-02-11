@@ -69,6 +69,7 @@ public abstract class ProjectileWeapon extends Weapon {
                 event.getPlayer().getInventory().setItem(slot,itemStack);
                 event.getPlayer().updateInventory();
                 onWeaponFire(event.getPlayer());
+                super.getWeaponManager().waiting.add(event.getPlayer().getName());
                 scheduleDelay(event.getPlayer());
             }
         }

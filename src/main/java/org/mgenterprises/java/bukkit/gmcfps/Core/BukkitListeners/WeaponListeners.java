@@ -61,6 +61,7 @@ public class WeaponListeners implements Listener {
     
     @EventHandler
     public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event){
+        System.out.println(event.getCause());
         if(event.getCause() == DamageCause.PROJECTILE){
             core.getWeaponManager().processProjectile(event);
         }
