@@ -41,7 +41,7 @@ public class BasicSMG extends ProjectileWeapon {
     
     private int velocityMulti = 2;
     public BasicSMG(WeaponManager wm){
-        super(wm, "SMG", Material.STICK, Material.FLINT, EntityType.SNOWBALL, 10);
+        super(wm, "SMG", Material.STICK, Material.FLINT, EntityType.SNOWBALL, 4);
     }
     
     @Override
@@ -52,6 +52,6 @@ public class BasicSMG extends ProjectileWeapon {
 
     @Override
     public void onProjectileHit(EntityDamageByEntityEvent event) {
-        event.setDamage(1000);
+        event.setDamage(1);
     }
 }
