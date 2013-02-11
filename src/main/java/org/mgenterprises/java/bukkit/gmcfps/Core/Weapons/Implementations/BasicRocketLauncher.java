@@ -23,6 +23,7 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
@@ -41,7 +42,7 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 public class BasicRocketLauncher extends ProjectileWeapon{
 
     private int velocityMulti = 2;
-    private float explosionMulti = 1.5F;
+    private float explosionMulti = 2F;
     public BasicRocketLauncher(WeaponManager wm) {
         super(wm, "Launcher", Material.DIAMOND_AXE, Material.IRON_INGOT, EntityType.SMALL_FIREBALL, 100);
     }
@@ -50,6 +51,7 @@ public class BasicRocketLauncher extends ProjectileWeapon{
     public void onWeaponFire(Player p) {
         Projectile projectile = p.launchProjectile(SmallFireball.class);
         projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
+        p.playEffect(p.getLocation(), Effect.CLICK2, 20);
     }
 
     @Override
