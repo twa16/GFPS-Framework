@@ -42,9 +42,11 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.Team;
 public class ConfigurationManager {
 
     private File dataDirectory;
-
+    private JavaPlugin plugin;
+    
     public ConfigurationManager(JavaPlugin plugin) {
         this.dataDirectory = plugin.getDataFolder();
+        this.plugin = plugin;
     }
 
     public ArrayList<File> getGameConfigurationFiles() {
@@ -67,7 +69,7 @@ public class ConfigurationManager {
         int scoreCap = gameConfig.getInt("ScoreCap");
         int maxSize = gameConfig.getInt("MaxSize");
         List<String> teamNames = gameConfig.getStringList("Teams");
-        Game game = new Game(name);
+        Game game = new Game(plugin, name);
         game.setMaxSize(maxSize);
         game.setScoreCap(scoreCap);
         game.getFPSCore().getTeamManager().setFreeForAll(isFreeForAll);

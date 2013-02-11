@@ -24,6 +24,7 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 
 /**
@@ -35,10 +36,16 @@ public class Game {
     private FPSCore core;
     private int maxSize = 25;
     private int scoreCap = 30;
+    private JavaPlugin plugin;
     
-    public Game(String name){
+    public Game(JavaPlugin plugin, String name){
         this.name = name;
+        this.plugin = plugin;
         this.core = new FPSCore(this);
+    }
+    
+    public JavaPlugin getPluginReference(){
+        return this.plugin;
     }
     
     public FPSCore getFPSCore(){

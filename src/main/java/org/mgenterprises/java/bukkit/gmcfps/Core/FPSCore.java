@@ -54,6 +54,7 @@ public class FPSCore {
 
     public FPSCore(Game game) {
         this.gameReference = game;
+        plugin = game.getPluginReference();
         init();
     }
 
