@@ -155,6 +155,14 @@ public class TeamManager implements PlayerHurtByPlayerListener {
         return this.teams;
     }
     
+    public ArrayList<String> getAllTeamsNames(){
+        ArrayList<String> names = new ArrayList<String>();
+        for(Team team : getAllTeams()){
+            names.add(team.getName());
+        }
+        return names;
+    }
+    
     public boolean canHurtEachother(Player p1, Player p2) {
         Team p1t = this.getPlayerTeam(p1);
         Team p2t = this.getPlayerTeam(p2);

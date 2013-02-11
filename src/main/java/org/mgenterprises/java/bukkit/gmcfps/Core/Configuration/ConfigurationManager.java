@@ -45,8 +45,8 @@ public class ConfigurationManager {
     private JavaPlugin plugin;
     
     public ConfigurationManager(JavaPlugin plugin) {
-        this.dataDirectory = plugin.getDataFolder();
         this.plugin = plugin;
+        this.dataDirectory = plugin.getDataFolder();
     }
 
     public ArrayList<File> getGameConfigurationFiles() {
@@ -85,7 +85,7 @@ public class ConfigurationManager {
         gameConfig.set("Freeforall", game.getFPSCore().getTeamManager().isFreeForAll());
         gameConfig.set("ScoreCap", game.getScoreCap());
         gameConfig.set("MaxSize", game.getMaxSize());
-        gameConfig.set("Teams", game.getFPSCore().getTeamManager().getAllTeams());
+        gameConfig.set("Teams", game.getFPSCore().getTeamManager().getAllTeamsNames());
         try {
             gameConfig.save(dataDirectory+"/"+game.getName()+".yml");
         } catch (IOException ex) {
