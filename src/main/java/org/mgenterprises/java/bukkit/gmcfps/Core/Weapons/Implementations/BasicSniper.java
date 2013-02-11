@@ -36,14 +36,13 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
  *
  * @author Manuel Gauto
  */
-public class BasicSMG extends ProjectileWeapon {
+public class BasicSniper extends ProjectileWeapon {
 
-    
-    private int velocityMulti = 2;
-    public BasicSMG(WeaponManager wm){
-        super(wm, "SMG", Material.STICK, Material.FLINT, EntityType.SNOWBALL, 10);
+    private int velocityMulti = 20;
+    public BasicSniper(WeaponManager wm) {
+        super(wm, "SMG", Material.IRON_HOE, Material.FLINT, EntityType.SNOWBALL, 10);
     }
-    
+
     @Override
     public void onWeaponFire(Player p) {
         Projectile projectile = p.launchProjectile(Snowball.class);
@@ -52,6 +51,5 @@ public class BasicSMG extends ProjectileWeapon {
 
     @Override
     public void onProjectileHit(EntityDamageByEntityEvent event) {
-        event.setDamage(1000);
     }
 }
