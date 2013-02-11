@@ -87,7 +87,7 @@ public class ConfigurationManager {
         gameConfig.set("MaxSize", game.getMaxSize());
         gameConfig.set("Teams", game.getFPSCore().getTeamManager().getAllTeams());
         try {
-            gameConfig.save(dataDirectory+"/"+game.getName());
+            gameConfig.save(dataDirectory+"/"+game.getName()+".yml");
         } catch (IOException ex) {
             Logger.getLogger(ConfigurationManager.class.getName()).log(Level.SEVERE, null, ex);
         }
