@@ -42,7 +42,7 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 public class BasicRocketLauncher extends ProjectileWeapon{
 
     private int velocityMulti = 2;
-    private float explosionMulti = 2F;
+    private float explosionMulti = 3F;
     public BasicRocketLauncher(WeaponManager wm) {
         super(wm, "Launcher", Material.DIAMOND_AXE, Material.IRON_INGOT, EntityType.SMALL_FIREBALL, 100);
     }
