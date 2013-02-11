@@ -23,6 +23,7 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -40,7 +41,7 @@ public class BasicSniper extends ProjectileWeapon {
 
     private int velocityMulti = 20;
     public BasicSniper(WeaponManager wm) {
-        super(wm, "SMG", Material.IRON_HOE, Material.FLINT, EntityType.SNOWBALL, 10);
+        super(wm, "Sniper", Material.IRON_HOE, Material.IRON_INGOT, EntityType.ARROW, 10);
     }
 
     @Override
@@ -51,5 +52,7 @@ public class BasicSniper extends ProjectileWeapon {
 
     @Override
     public void onProjectileHit(EntityDamageByEntityEvent event) {
+        Bukkit.broadcastMessage("HIT!");
+        
     }
 }
