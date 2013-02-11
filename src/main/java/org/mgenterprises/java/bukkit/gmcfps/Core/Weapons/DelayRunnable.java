@@ -23,6 +23,7 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons;
 
+import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 
@@ -41,6 +42,7 @@ public class DelayRunnable implements Runnable{
     @Override
     public void run() {
         core.getWeaponManager().waiting.remove(p.getName());
+        p.playEffect(p.getLocation(), Effect.CLICK1, 20);
     }
     
 }
