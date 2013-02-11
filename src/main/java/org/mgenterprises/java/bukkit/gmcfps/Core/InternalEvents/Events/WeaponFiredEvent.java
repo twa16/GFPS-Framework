@@ -79,4 +79,15 @@ public class WeaponFiredEvent extends CancellableEvent {
     public Location getLocation(){
         return this.location;
     }
+    
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(player);
+        sb.append("\n  ");
+        sb.append(weaponUsed.getName());
+        sb.append("\n  ");
+        sb.append(this.location);
+        return sb.toString();
+    }
 }
