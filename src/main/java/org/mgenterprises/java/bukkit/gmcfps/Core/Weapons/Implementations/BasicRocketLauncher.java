@@ -51,7 +51,6 @@ public class BasicRocketLauncher extends ProjectileWeapon{
     public void onWeaponFire(Player p) {
         Projectile projectile = p.launchProjectile(SmallFireball.class);
         projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
-        p.playEffect(p.getLocation(), Effect.CLICK1, 20);
     }
 
     @Override
