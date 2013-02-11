@@ -39,9 +39,9 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 public class BasicSMG extends ProjectileWeapon {
 
     
-    private int velocityMulti = 5;
+    private int velocityMulti = 2;
     public BasicSMG(WeaponManager wm){
-        super(wm, "SMG", Material.STICK, Material.FLINT, EntityType.ARROW, 4);
+        super(wm, "SMG", Material.STICK, Material.FLINT, EntityType.SNOWBALL, 4);
     }
     
     @Override
