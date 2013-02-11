@@ -51,7 +51,12 @@ public class Team {
     }
     
     public boolean isMember(Player p){
-        return this.members.contains(p);
+        for(Player pi : members){
+            if(pi.getName().equals(p.getName())){
+                return true;
+            }
+        }
+        return false;
     }
     
     public Player[] getMembers(){
