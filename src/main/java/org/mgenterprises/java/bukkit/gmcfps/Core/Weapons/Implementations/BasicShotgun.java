@@ -56,7 +56,7 @@ public class BasicShotgun extends ProjectileWeapon {
 
     @Override
     public void onProjectileHitPlayer(EntityDamageByEntityEvent event) {
-        event.setDamage(30);
+        event.setDamage(100);
     }
 
     @Override

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
@@ -58,18 +59,25 @@ public class ScoreManager implements PlayerKilledByPlayerListener {
      */
     @Override
     public void onPlayerKilledByPlayerEvent(PlayerKilledByPlayerEvent event) {
-        //lets start converting
         String killerName = event.getKiller().getName();
+        checkHasStats(killerName);
         PlayerStats killerStats = stats.get(killerName);
         killerStats.registerKill(event);
         this.stats.put(killerName, killerStats);
 
         String victimName = event.getVictim().getName();
+        checkHasStats(victimName);
         PlayerStats victimStats = stats.get(victimName);
         victimStats.registerDeath();
         this.stats.put(victimName, victimStats);
     }
 
+    private void checkHasStats(String name){
+        if(!this.stats.containsKey(name)){
+            this.stats.put(name, new PlayerStats(name));
+        }
+    }
+    
     public PlayerStats getPlayerStats(Player p) {
         return this.stats.get(p.getName());
     }
@@ -80,10 +88,11 @@ public class ScoreManager implements PlayerKilledByPlayerListener {
         return psList;
     }
     
-    public void printTopScores(ArrayList<PlayerStats> statsList){
-        for(PlayerStats ps : statsList){
-            System.out.println();
-            
+    public void printTopScores(Player p, ArrayList<PlayerStats> statsList){
+        for(int i = 0;i<10;i++){
+            PlayerStats ps = statsList.get(i);
+            System.out.println(ChatColor.GOLD+"==============="+ChatColor.RED+"Top 10 Players"+ChatColor.GOLD+"===============");
+            p.sendRawMessage(i+" " + ChatColor.BLUE + ps.getName() + ChatColor.DARK_RED + "  Kills: " + ChatColor.WHITE + ps.getKills() + ChatColor.DARK_RED + "  Deaths: " + ChatColor.WHITE + ps.getDeaths() + ChatColor.DARK_RED + "  K/D Spread: " + ChatColor.WHITE + ps.getKillDeathRatio());
         }
     }
 }

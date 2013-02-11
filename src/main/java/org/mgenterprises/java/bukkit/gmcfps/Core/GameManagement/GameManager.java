@@ -26,6 +26,7 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Configuration.ConfigurationManager;
 
@@ -54,6 +55,15 @@ public class GameManager {
         for (Game game : games.values()) {
             configManager.saveGameConfig(game);
         }
+    }
+    
+    public Game getPlayerGame(Player p){
+        for(Game g : this.games.values()){
+            if(g.getFPSCore().getTeamManager().isParticipating(p)){
+                return g;
+            }
+        }
+        return null;
     }
     
     public void loadAllGames(){

@@ -36,7 +36,16 @@ public class PlayerStats implements Serializable{
     private int deaths = 0;
     private int kills = 0;
     private HashMap<String, Integer> weaponKills = new HashMap<String, Integer>();
-   
+    private String name;
+    
+    public PlayerStats(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
     public int getDeaths(){
         return this.deaths;
     }

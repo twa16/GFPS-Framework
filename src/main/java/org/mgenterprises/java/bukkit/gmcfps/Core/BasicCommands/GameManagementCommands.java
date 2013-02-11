@@ -23,6 +23,7 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.BasicCommands;
 
+import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,7 +39,8 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.GameManager;
 public class GameManagementCommands implements CommandExecutor {
 
     private GameManager gameManager;
-
+    private HashMap<String, Integer> step = new HashMap<String, Integer>();
+    
     public GameManagementCommands(GameManager gameManager) {
         this.gameManager = gameManager;
     }
@@ -49,8 +51,8 @@ public class GameManagementCommands implements CommandExecutor {
             return processJoinCommand(cs, args);
         } else if (string.equalsIgnoreCase(Commands.LEAVE.toString())) {
             return processLeaveCommand(cs, args);
-        } else if (string.equalsIgnoreCase(Commands.SCORE.toString())) {
-            
+        } else if(string.equalsIgnoreCase(Commands.GAME.toString())) {
+            return processWizard(cs, args);
         }
         return false;
     }
@@ -73,7 +75,7 @@ public class GameManagementCommands implements CommandExecutor {
                     }
                 }
 
-                return true;
+                return false;
             } else {
                 cs.sendMessage(ChatColor.RED + "You do not have permission to do that!");
                 return true;
@@ -98,5 +100,9 @@ public class GameManagementCommands implements CommandExecutor {
             }
         }
         return true;
+    }
+    
+    private boolean processWizard(CommandSender cs, String[] args){
+        if()
     }
 }

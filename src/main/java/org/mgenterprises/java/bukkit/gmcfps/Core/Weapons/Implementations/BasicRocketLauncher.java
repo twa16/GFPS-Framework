@@ -23,7 +23,6 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;

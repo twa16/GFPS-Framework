@@ -23,24 +23,30 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.BasicCommands;
 
+import org.bukkit.plugin.java.JavaPlugin;
+import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.GameManager;
+
 /**
  *
  * @author Manuel Gauto
  */
-public enum Commands {
-    JOIN("JOIN"),
-    LEAVE("LEAVE"),
-    SCORE("SCORE"),
-    TOP("TOP"),
-    GAME("GAME");
+public class CommandRegisterer {
+    private JavaPlugin plugin;
+    private GameManager gm;
     
-    String name;
-    Commands(String name){
-        this.name = name;
+    public CommandRegisterer(JavaPlugin plugin, GameManager gm){
+        this.plugin = plugin;
+        this.gm = gm;
+        init();
     }
     
-    @Override
-    public String toString(){
-        return this.name;
+    private void init(){
+        GameManagementCommands gmc = new GameManagementCommands(gm);
+        ScoreCommands sc = new ScoreCommands(gm);
+        plugin.getCommand(Commands.JOIN.toString()).setExecutor(gmc);
+        plugin.getCommand(Commands.LEAVE.toString()).setExecutor(gmc);
+        
+        plugin.getCommand(Commands.TOP.toString()).setExecutor(sc);
+        plugin.getCommand(Commands.SCORE.toString()).setExecutor(sc);
     }
 }
