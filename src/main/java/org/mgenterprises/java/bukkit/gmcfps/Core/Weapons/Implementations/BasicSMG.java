@@ -52,6 +52,6 @@ public class BasicSMG extends ProjectileWeapon {
 
     @Override
     public void onProjectileHit(EntityDamageByEntityEvent event) {
-        event.setDamage(2);
+        event.setDamage(3);
     }
 }
