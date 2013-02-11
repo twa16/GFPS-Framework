@@ -63,11 +63,10 @@ public abstract class ProjectileWeapon extends Weapon {
         boolean hasAmmoLeft = event.getPlayer().getInventory().contains(ammoMaterial);
         if (hasAmmoLeft) {
             ItemStack ammoUsed = new ItemStack(ammoMaterial);
-            event.getPlayer().getInventory().remove(ammoUsed);
             int slot = event.getPlayer().getInventory().first(ammoUsed);
             ItemStack itemStack = event.getPlayer().getInventory().getItem(slot);
             itemStack.setAmount(itemStack.getAmount()-1);
-            event.getPlayer().getInventory().remove(slot);
+            event.getPlayer().getInventory().clear(slot);
             event.getPlayer().getInventory().addItem(itemStack);
             
             onWeaponFire(event.getPlayer());
