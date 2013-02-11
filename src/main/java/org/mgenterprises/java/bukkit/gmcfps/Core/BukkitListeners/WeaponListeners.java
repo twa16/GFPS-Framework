@@ -50,27 +50,26 @@ public class WeaponListeners implements Listener {
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent event) {
         if (core.getTeamManager().isParticipating(event.getPlayer())) {
-            
+
             WeaponFiredSource source = core.getEventManager().getWeaponFiredSource();
             Weapon w = core.getWeaponManager().getWeaponByType(event.getPlayer().getItemInHand().getType());
-            if(w == null){
+            if (w == null) {
                 return;
             }
             WeaponFiredEvent wfe = new WeaponFiredEvent(source, w, event.getPlayer(), event.getPlayer().getLocation());
             core.getEventManager().getWeaponFiredSource().fireEvent(wfe);
         }
     }
-    
+
     @EventHandler
-    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event){
-        
-        if(event.getCause() == DamageCause.PROJECTILE){
+    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        if (event.getCause() == DamageCause.PROJECTILE) {
             core.getWeaponManager().processProjectile(event);
         }
     }
-    
+
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent event){
-        
+    public void onProjectileHit(ProjectileHitEvent event) {
+        core.getWeaponManager().processProjectileHit(event);
     }
 }
