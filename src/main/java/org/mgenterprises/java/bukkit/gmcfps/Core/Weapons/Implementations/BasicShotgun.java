@@ -24,10 +24,10 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Egg;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.ProjectileWeapon;
@@ -39,28 +39,28 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
  */
 public class BasicShotgun extends ProjectileWeapon {
 
-    private int velocityMulti = 1;
-    private int perShot = 10;
+    private double velocityMulti = 0.1;
+    private int perShot = 3;
 
     public BasicShotgun(WeaponManager wm) {
-        super(wm, "Shotgun", Material.GOLD_SPADE, Material.FIREWORK_CHARGE, EntityType.EGG, 40);
+        super(wm, "Shotgun", Material.GOLD_SPADE, Material.EGG, EntityType.WITHER_SKULL, 40);
     }
 
     @Override
     public void onWeaponFire(Player p) {
         for (int i = 0; i < perShot; i++) {
-            Projectile projectile = p.launchProjectile(Egg.class);
+            Projectile projectile = p.launchProjectile(WitherSkull.class);
             projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
         }
     }
 
     @Override
     public void onProjectileHitPlayer(EntityDamageByEntityEvent event) {
-        event.setDamage(4);
+        event.setDamage(30);
     }
 
     @Override
     public void onProjectileHit(ProjectileHitEvent event) {
-        
+        event.getEntity().remove();
     }
 }
