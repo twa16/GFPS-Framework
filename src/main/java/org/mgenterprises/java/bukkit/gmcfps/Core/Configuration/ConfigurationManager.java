@@ -45,8 +45,8 @@ public class ConfigurationManager {
     private JavaPlugin plugin;
     
     public ConfigurationManager(JavaPlugin plugin) {
-        this.plugin = plugin;
         this.dataDirectory = plugin.getDataFolder();
+        this.plugin = plugin;
     }
 
     public ArrayList<File> getGameConfigurationFiles() {
