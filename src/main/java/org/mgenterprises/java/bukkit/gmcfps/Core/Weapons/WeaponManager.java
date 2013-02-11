@@ -80,6 +80,7 @@ public class WeaponManager implements WeaponFiredListener {
 
     public void processProjectile(EntityDamageByEntityEvent event){
         for(Weapon w : weapons.values()){
+            System.out.println(w);
             if(w.isProjectile()){
                 ProjectileWeapon pw = (ProjectileWeapon) w;
                 if(pw.getProjectileType() == event.getEntityType()){
