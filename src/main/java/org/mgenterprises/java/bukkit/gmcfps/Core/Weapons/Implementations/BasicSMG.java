@@ -26,7 +26,6 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.ProjectileWeapon;
@@ -38,16 +37,17 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
  */
 public class BasicSMG extends ProjectileWeapon {
 
-    
     private int velocityMulti = 2;
-    public BasicSMG(WeaponManager wm){
+
+    public BasicSMG(WeaponManager wm) {
         super(wm, "SMG", Material.STICK, Material.FLINT, EntityType.SNOWBALL, 4);
     }
-    
+
     @Override
     public void onWeaponFire(Player p) {
-        Projectile projectile = p.launchProjectile(Snowball.class);
-        projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
+        Snowball ball = p.getWorld().spawn(p.getEyeLocation(), Snowball.class);
+        ball.setShooter(p);
+        ball.setVelocity(ball.getVelocity().multiply(velocityMulti));
     }
 
     @Override
