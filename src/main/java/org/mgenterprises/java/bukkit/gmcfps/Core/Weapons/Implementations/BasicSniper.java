@@ -41,7 +41,7 @@ public class BasicSniper extends ProjectileWeapon {
 
     private int velocityMulti = 20;
     public BasicSniper(WeaponManager wm) {
-        super(wm, "Sniper", Material.IRON_HOE, Material.IRON_INGOT, EntityType.ARROW, 10);
+        super(wm, "Sniper", Material.IRON_HOE, Material.IRON_INGOT, EntityType.ARROW, 100);
     }
 
     @Override
