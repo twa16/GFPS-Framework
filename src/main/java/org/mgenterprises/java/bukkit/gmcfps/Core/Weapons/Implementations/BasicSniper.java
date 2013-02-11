@@ -25,10 +25,10 @@ package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.ProjectileWeapon;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
@@ -46,7 +46,7 @@ public class BasicSniper extends ProjectileWeapon {
 
     @Override
     public void onWeaponFire(Player p) {
-        Projectile projectile = p.launchProjectile(Snowball.class);
+        Projectile projectile = p.launchProjectile(Arrow.class);
         projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
     }
 
