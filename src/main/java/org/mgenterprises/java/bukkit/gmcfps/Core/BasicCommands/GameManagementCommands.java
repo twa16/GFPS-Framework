@@ -47,8 +47,9 @@ public class GameManagementCommands implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] args) {
         if (string.equalsIgnoreCase(Commands.JOIN.toString())) {
             return processJoinCommand(cs, args);
-        }
-        else if(string.equalsIgnoreCase(Commands.LEAVE.toString())){
+        } else if (string.equalsIgnoreCase(Commands.LEAVE.toString())) {
+            return processLeaveCommand(cs, args);
+        } else if (string.equalsIgnoreCase(Commands.SCORE.toString())) {
             
         }
         return false;
@@ -73,8 +74,7 @@ public class GameManagementCommands implements CommandExecutor {
                 }
 
                 return true;
-            }
-            else{
+            } else {
                 cs.sendMessage(ChatColor.RED + "You do not have permission to do that!");
                 return true;
             }
@@ -82,5 +82,21 @@ public class GameManagementCommands implements CommandExecutor {
             cs.sendMessage(ChatColor.BLUE + "Command must be executed by a player");
             return true;
         }
+    }
+
+    private boolean processLeaveCommand(CommandSender cs, String[] args) {
+        if (cs instanceof Player) {
+            if (((Player) cs).hasPermission("gfps.leave") || ((Player) cs).isOp()) {
+                Player p = (Player) cs;
+                Game g = gameManager.getGameByName(args[0]);
+                if (g == null) {
+                    p.sendRawMessage(ChatColor.BLUE + "Please enter a valid game name!");
+                } else {
+                    g.unregisterPlayer(p);
+                    p.sendRawMessage(ChatColor.BLUE + "You have left your game!");
+                }
+            }
+        }
+        return true;
     }
 }

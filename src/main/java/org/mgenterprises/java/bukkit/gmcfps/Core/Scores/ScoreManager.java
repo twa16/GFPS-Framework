@@ -23,7 +23,11 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.Scores;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import org.bukkit.entity.Player;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerKilledByPlayerListener;
@@ -36,10 +40,17 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.Player
 public class ScoreManager implements PlayerKilledByPlayerListener {
 
     private HashMap<String, PlayerStats> stats = new HashMap<String, PlayerStats>();
+    private FPSCore core;
 
-    public ScoreManager(FPSCore core){
+    /**
+     * System for recording scores during the game.
+     *
+     * @param core
+     */
+    public ScoreManager(FPSCore core) {
+        this.core = core;
     }
-    
+
     /**
      * Override method for PlayerKilledByPlayerEvent
      *
@@ -57,5 +68,34 @@ public class ScoreManager implements PlayerKilledByPlayerListener {
         PlayerStats victimStats = stats.get(victimName);
         victimStats.registerDeath();
         this.stats.put(victimName, victimStats);
+    }
+
+    public PlayerStats getPlayerStats(Player p) {
+        return this.stats.get(p.getName());
+    }
+    
+    public ArrayList<PlayerStats> getSortedPlayerStatsMap(){
+        ArrayList psList = new ArrayList<PlayerStats>(stats.values());
+        Collections.sort(psList , new PlayerStatsComparator());
+        return psList;
+    }
+    
+    public void printTopScores(ArrayList<PlayerStats> statsList){
+        for(PlayerStats ps : statsList){
+            System.out.println();
+            
+        }
+    }
+}
+
+class PlayerStatsComparator implements Comparator<PlayerStats> {
+
+    @Override
+    public int compare(PlayerStats a, PlayerStats b) {
+        if (a.getKills() >= b.getKills()) {
+            return -1;
+        } else {
+            return 1;
+        } // returning 0 would merge keys
     }
 }
