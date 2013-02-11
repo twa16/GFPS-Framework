@@ -94,6 +94,7 @@ public class WeaponManager implements WeaponFiredListener {
         for(Weapon w : weapons.values()){
             if(w.isProjectile()){
                 ProjectileWeapon pw = (ProjectileWeapon) w;
+                System.out.println(pw.getProjectileType()+"   "+event.getEntity().getType());
                 if(pw.getProjectileType() == event.getEntity().getType()){
                     pw.onProjectileHit(event);
                 }
