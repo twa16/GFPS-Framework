@@ -24,10 +24,11 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Snowball;
+import org.bukkit.entity.SmallFireball;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.ProjectileWeapon;
@@ -37,27 +38,30 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
  *
  * @author Manuel Gauto
  */
-public class BasicSMG extends ProjectileWeapon {
+public class BasicRocketLauncher extends ProjectileWeapon{
 
-    
     private int velocityMulti = 2;
-    public BasicSMG(WeaponManager wm){
-        super(wm, "SMG", Material.STICK, Material.FLINT, EntityType.SNOWBALL, 2);
+    private float explosionMulti = 1.5F;
+    public BasicRocketLauncher(WeaponManager wm) {
+        super(wm, "Launcher", Material.DIAMOND_AXE, Material.IRON_INGOT, EntityType.SMALL_FIREBALL, 100);
     }
     
     @Override
     public void onWeaponFire(Player p) {
-        Projectile projectile = p.launchProjectile(Snowball.class);
+        Projectile projectile = p.launchProjectile(SmallFireball.class);
         projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
     }
 
     @Override
     public void onProjectileHitPlayer(EntityDamageByEntityEvent event) {
-        event.setDamage(3);
+        World world = event.getEntity().getLocation().getWorld();
+        world.createExplosion(event.getEntity().getLocation(), explosionMulti);
     }
 
     @Override
     public void onProjectileHit(ProjectileHitEvent event) {
-        
+        World world = event.getEntity().getLocation().getWorld();
+        world.createExplosion(event.getEntity().getLocation(), explosionMulti);
     }
+    
 }

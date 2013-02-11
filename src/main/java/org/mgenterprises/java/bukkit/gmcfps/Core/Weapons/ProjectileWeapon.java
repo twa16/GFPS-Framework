@@ -28,6 +28,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFiredEvent;
 
@@ -89,7 +90,9 @@ public abstract class ProjectileWeapon extends Weapon {
         return this.projectileType;
     }
     
-    public abstract void onProjectileHit(EntityDamageByEntityEvent event);
+    public abstract void onProjectileHitPlayer(EntityDamageByEntityEvent event);
+    
+    public abstract void onProjectileHit(ProjectileHitEvent event);
     
     private void scheduleDelay(Player p) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(super.getWeaponManager().getFPSCore().getPluginReference(), new DelayRunnable(super.getWeaponManager().getFPSCore(), p), this.fireDelay);

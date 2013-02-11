@@ -30,6 +30,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.ProjectileWeapon;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 
@@ -51,7 +52,12 @@ public class BasicSniper extends ProjectileWeapon {
     }
 
     @Override
-    public void onProjectileHit(EntityDamageByEntityEvent event) {
+    public void onProjectileHitPlayer(EntityDamageByEntityEvent event) {
         event.setDamage(30);
+    }
+
+    @Override
+    public void onProjectileHit(ProjectileHitEvent event) {
+        event.getEntity().remove();
     }
 }
