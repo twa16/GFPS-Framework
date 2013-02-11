@@ -41,7 +41,8 @@ public abstract class ProjectileWeapon extends Weapon {
     private Material ammoMaterial;
     private EntityType projectileType;
     private int fireDelay;
-
+    private boolean enableClick=true;
+    
     public ProjectileWeapon(WeaponManager wm, String name, Material m, Material ammoType, EntityType projectileType, int fireDelay) {
         super(wm, name, m);
         this.ammoMaterial = ammoType;
@@ -90,11 +91,15 @@ public abstract class ProjectileWeapon extends Weapon {
         return this.projectileType;
     }
     
+    public void disableClick(){
+        this.enableClick = false;
+    }
+    
     public abstract void onProjectileHitPlayer(EntityDamageByEntityEvent event);
     
     public abstract void onProjectileHit(ProjectileHitEvent event);
     
     private void scheduleDelay(Player p) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(super.getWeaponManager().getFPSCore().getPluginReference(), new DelayRunnable(super.getWeaponManager().getFPSCore(), p), this.fireDelay);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(super.getWeaponManager().getFPSCore().getPluginReference(), new DelayRunnable(super.getWeaponManager().getFPSCore(), p, enableClick), this.fireDelay);
     }
 }

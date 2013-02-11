@@ -31,18 +31,23 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
  *
  * @author Manuel Gauto
  */
-public class DelayRunnable implements Runnable{
+public class DelayRunnable implements Runnable {
+
     private FPSCore core;
     private Player p;
-    
-    public DelayRunnable(FPSCore core, Player p){
+    private boolean enableClick;
+
+    public DelayRunnable(FPSCore core, Player p, boolean click) {
         this.core = core;
         this.p = p;
+        this.enableClick = click;
     }
+
     @Override
     public void run() {
         core.getWeaponManager().waiting.remove(p.getName());
-        p.playEffect(p.getLocation(), Effect.CLICK1, 20);
+        if (enableClick) {
+            p.playEffect(p.getLocation(), Effect.CLICK1, 20);
+        }
     }
-    
 }
