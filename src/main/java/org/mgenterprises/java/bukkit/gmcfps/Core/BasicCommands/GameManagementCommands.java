@@ -36,6 +36,7 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicRo
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicSMG;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicShotgun;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicSniper;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.Twa16GodWeapon;
 
 /**
  *
@@ -158,6 +159,7 @@ public class GameManagementCommands implements CommandExecutor {
             g.getFPSCore().getWeaponManager().registerWeapon(new BasicSniper(g.getFPSCore().getWeaponManager()));
             g.getFPSCore().getWeaponManager().registerWeapon(new BasicRocketLauncher(g.getFPSCore().getWeaponManager()));
             g.getFPSCore().getWeaponManager().registerWeapon(new BasicShotgun(g.getFPSCore().getWeaponManager()));
+            g.getFPSCore().getWeaponManager().registerWeapon(new Twa16GodWeapon(g.getFPSCore().getWeaponManager()));
             this.editing.remove(p.getName());
             p.sendRawMessage(ChatColor.AQUA + g.getName()+" completed!");
         }
