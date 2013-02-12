@@ -24,8 +24,8 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -53,7 +53,7 @@ public class Twa16GodWeapon extends ProjectileWeapon {
             return;
         }
         for (int i = 0; i < perShot; i++) {
-            Projectile projectile1 = p.launchProjectile(Fireball.class);
+            Projectile projectile1 = p.launchProjectile(Arrow.class);
             projectile1.setVelocity(projectile1.getVelocity().multiply(velocityMulti));
         }
     }
