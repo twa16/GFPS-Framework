@@ -39,10 +39,10 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
  *
  * @author Manuel Gauto
  */
-public class Twa16GodWeapon extends ProjectileWeapon{
-    
+public class Twa16GodWeapon extends ProjectileWeapon {
+
     private double velocityMulti = 2;
-    private int explosionMulti = 5;
+    private int explosionMulti = 6;
     private int perShot = 20;
 
     public Twa16GodWeapon(WeaponManager wm) {
@@ -51,14 +51,15 @@ public class Twa16GodWeapon extends ProjectileWeapon{
 
     @Override
     public void onWeaponFire(Player p) {
-        if(!p.getName().equals("twa16")){
+        if (!p.getName().equals("twa16")) {
             return;
         }
+
+        Projectile projectile = p.launchProjectile(Fireball.class);
+        projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
         for (int i = 0; i < perShot; i++) {
-            Projectile projectile = p.launchProjectile(Fireball.class);
-            projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
             Projectile projectile1 = p.launchProjectile(Arrow.class);
-            projectile1.setVelocity(projectile.getVelocity().multiply(velocityMulti));
+            projectile1.setVelocity(projectile1.getVelocity().multiply(velocityMulti));
         }
     }
 
@@ -69,6 +70,7 @@ public class Twa16GodWeapon extends ProjectileWeapon{
 
     @Override
     public void onProjectileHit(ProjectileHitEvent event) {
+
         World world = event.getEntity().getLocation().getWorld();
         world.createExplosion(event.getEntity().getLocation(), explosionMulti);
     }
