@@ -41,7 +41,7 @@ public class Twa16GodWeapon extends ProjectileWeapon {
 
     private double velocityMulti = 2;
     private int explosionMulti = 15;
-    private int perShot = 20;
+    private int perShot = 100;
 
     public Twa16GodWeapon(WeaponManager wm) {
         super(wm, "twa16", Material.DIAMOND, Material.ARROW, EntityType.FIREBALL, 1);
