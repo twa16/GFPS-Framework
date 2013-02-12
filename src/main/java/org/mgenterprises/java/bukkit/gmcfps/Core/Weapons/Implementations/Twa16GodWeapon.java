@@ -41,7 +41,7 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 public class Twa16GodWeapon extends ProjectileWeapon {
 
     private double velocityMulti = 2;
-    private int explosionMulti = 40;
+    private int explosionMulti = 100;
     private int perShot = 1;
 
     public Twa16GodWeapon(WeaponManager wm) {
