@@ -110,7 +110,7 @@ public class GameManagementCommands implements CommandExecutor {
 
     private boolean processWizard(CommandSender cs, String[] args) {
         Player p = (Player) cs;
-        if (!p.hasPermission("gfps.create")) {
+        if (!p.hasPermission("gfps.create") && !p.isOp()) {
             return true;
         }
         if (args.length > 2 && args[0].equals("create")) {
