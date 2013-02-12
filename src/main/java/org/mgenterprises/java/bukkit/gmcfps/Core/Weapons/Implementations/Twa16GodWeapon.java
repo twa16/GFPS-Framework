@@ -24,8 +24,6 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations;
 
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
@@ -54,24 +52,19 @@ public class Twa16GodWeapon extends ProjectileWeapon {
         if (!p.getName().equals("twa16")) {
             return;
         }
-
-        Projectile projectile = p.launchProjectile(Fireball.class);
-        projectile.setVelocity(projectile.getVelocity().multiply(velocityMulti));
         for (int i = 0; i < perShot; i++) {
-            Projectile projectile1 = p.launchProjectile(Arrow.class);
+            Projectile projectile1 = p.launchProjectile(Fireball.class);
             projectile1.setVelocity(projectile1.getVelocity().multiply(velocityMulti));
         }
     }
 
     @Override
     public void onProjectileHitPlayer(EntityDamageByEntityEvent event) {
-        event.setDamage(1000);
+        event.setDamage(100000);
     }
 
     @Override
     public void onProjectileHit(ProjectileHitEvent event) {
         
-        World world = event.getEntity().getLocation().getWorld();
-        world.createExplosion(event.getEntity().getLocation(), explosionMulti);
     }
 }
