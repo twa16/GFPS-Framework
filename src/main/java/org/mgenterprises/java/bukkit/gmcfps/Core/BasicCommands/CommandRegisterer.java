@@ -48,5 +48,7 @@ public class CommandRegisterer {
         
         plugin.getCommand(Commands.TOP.toString()).setExecutor(sc);
         plugin.getCommand(Commands.SCORE.toString()).setExecutor(sc);
+        
+        plugin.getCommand(Commands.GAME.toString()).setExecutor(gmc);
     }
 }

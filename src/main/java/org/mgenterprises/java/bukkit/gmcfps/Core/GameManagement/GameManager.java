@@ -38,11 +38,17 @@ public class GameManager {
 
     HashMap<String, Game> games = new HashMap<String, Game>();
     private ConfigurationManager configManager;
-
+    private JavaPlugin plugin;
+    
     public GameManager(JavaPlugin plugin) {
         configManager = new ConfigurationManager(plugin);
+        this.plugin = plugin;
     }
 
+    public JavaPlugin getPluginReference(){
+        return this.plugin;
+    }
+    
     public Game getGameByName(String name) {
         return this.games.get(name);
     }

@@ -107,6 +107,15 @@ public class TeamManager implements PlayerHurtByPlayerListener {
         }
         return null;
     }
+    
+    public Team getTeam(String name) {
+        for (Team t : teams) {
+            if (t.getName().equals(name)) {
+                return t;
+            }
+        }
+        return null;
+    }
 
     public boolean isParticipating(Player p) {
         for (Team t : teams) {

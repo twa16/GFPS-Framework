@@ -30,6 +30,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerHurtByPlayerEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerKilledByPlayerEvent;
@@ -82,6 +83,11 @@ public class CombatListeners implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerRespawnEvent(PlayerRespawnEvent event){
+        core.getSpawnManager().onPlayerRespawn(event);
+    }
+    
     private void firePlayerKilledByPlayerEvent(Player killer, Player victim) {
         Weapon w = core.getWeaponManager().getWeaponByName(killer.getItemInHand().getType().name());
         PlayerKilledByPlayerSource source = core.getEventManager().getPlayerKilledSource();

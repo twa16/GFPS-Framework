@@ -28,10 +28,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Exceptions.LobbyNotDefinedException;
 import org.mgenterprises.java.bukkit.gmcfps.Core.FPSCore;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.PlayerLeftTeamEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Listeners.PlayerLeftTeamListener;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.Team;
 
 /**
  *
@@ -53,6 +55,13 @@ public class SpawnManager implements PlayerLeftTeamListener{
     private void checkForDefinedLobby() throws LobbyNotDefinedException{
         if(lobby == null){
             throw new LobbyNotDefinedException(core.getGameReference());
+        }
+    }
+    
+    public void onPlayerRespawn(PlayerRespawnEvent event){
+        if(core.getTeamManager().isParticipating(event.getPlayer())){
+            Team t = core.getTeamManager().getPlayerTeam(event.getPlayer());
+            event.getPlayer().teleport(t.getSpawn());
         }
     }
     

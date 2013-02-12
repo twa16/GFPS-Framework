@@ -24,6 +24,7 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.Teams;
 
 import java.util.ArrayList;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -33,9 +34,18 @@ import org.bukkit.entity.Player;
 public class Team {
     private ArrayList<Player> members = new ArrayList<Player>();
     private String name;
+    private Location spawn;
     
     public Team(String name){
         this.name = name;
+    }
+    
+    public void setSpawn(Location loc){
+        this.spawn = loc;
+    }
+    
+    public Location getSpawn(){
+        return spawn;
     }
     
     public String getName(){
