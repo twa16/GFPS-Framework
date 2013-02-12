@@ -42,7 +42,7 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
 public class Twa16GodWeapon extends ProjectileWeapon {
 
     private double velocityMulti = 2;
-    private int explosionMulti = 6;
+    private int explosionMulti = 15;
     private int perShot = 20;
 
     public Twa16GodWeapon(WeaponManager wm) {
@@ -70,7 +70,7 @@ public class Twa16GodWeapon extends ProjectileWeapon {
 
     @Override
     public void onProjectileHit(ProjectileHitEvent event) {
-
+        
         World world = event.getEntity().getLocation().getWorld();
         world.createExplosion(event.getEntity().getLocation(), explosionMulti);
     }
