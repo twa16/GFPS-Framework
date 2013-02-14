@@ -29,6 +29,7 @@ import java.util.HashMap;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Configuration.ConfigurationManager;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
  *
@@ -39,22 +40,31 @@ public class GameManager {
     HashMap<String, Game> games = new HashMap<String, Game>();
     private ConfigurationManager configManager;
     private JavaPlugin plugin;
-    
+    private ArrayList<Weapon> defaultWeapons = new ArrayList<Weapon>();
+
     public GameManager(JavaPlugin plugin) {
         configManager = new ConfigurationManager(plugin);
         this.plugin = plugin;
     }
 
-    public JavaPlugin getPluginReference(){
+    public void addDefaultWeapon(Weapon w) {
+        this.defaultWeapons.add(w);
+    }
+
+    public JavaPlugin getPluginReference() {
         return this.plugin;
     }
-    
+
     public Game getGameByName(String name) {
         return this.games.get(name);
     }
-    
-    public void registerGame(Game g){
-        games.put(g.getName(), g);
+
+    public void registerGame(Game g) {
+        Game game = g;
+        for (Weapon w : defaultWeapons) {
+            game.getFPSCore().getWeaponManager().registerWeapon(w);
+        }
+        games.put(g.getName(), game);
     }
 
     public void saveAllGames() {
@@ -62,20 +72,20 @@ public class GameManager {
             configManager.saveGameConfig(game);
         }
     }
-    
-    public Game getPlayerGame(Player p){
-        for(Game g : this.games.values()){
-            if(g.getFPSCore().getTeamManager().isParticipating(p)){
+
+    public Game getPlayerGame(Player p) {
+        for (Game g : this.games.values()) {
+            if (g.getFPSCore().getTeamManager().isParticipating(p)) {
                 return g;
             }
         }
         return null;
     }
-    
-    public void loadAllGames(){
+
+    public void loadAllGames() {
         ArrayList<File> gameFilesLoaded = configManager.getGameConfigurationFiles();
-        
-        for(File f : gameFilesLoaded){
+
+        for (File f : gameFilesLoaded) {
             Game g = configManager.processGameConfigurationFile(f);
             games.put(g.getName(), g);
         }
