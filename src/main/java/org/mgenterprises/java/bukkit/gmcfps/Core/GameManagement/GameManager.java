@@ -62,8 +62,11 @@ public class GameManager {
     public void registerGame(Game g) {
         Game game = g;
         for (Weapon w : defaultWeapons) {
+            w.setWeaponManager(g.getFPSCore().getWeaponManager());
             game.getFPSCore().getWeaponManager().registerWeapon(w);
         }
+        plugin.getServer().getPluginManager().registerEvents(g.getFPSCore().getCombatListener(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(g.getFPSCore().getWeaponListeners(), plugin);
         games.put(g.getName(), game);
     }
 

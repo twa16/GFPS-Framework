@@ -37,10 +37,9 @@ public class CommandRegisterer {
     public CommandRegisterer(JavaPlugin plugin, GameManager gm){
         this.plugin = plugin;
         this.gm = gm;
-        init();
     }
     
-    private void init(){
+    public void registerCommands(){
         GameManagementCommands gmc = new GameManagementCommands(gm);
         ScoreCommands sc = new ScoreCommands(gm);
         plugin.getCommand(Commands.JOIN.toString()).setExecutor(gmc);

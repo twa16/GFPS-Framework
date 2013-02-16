@@ -33,7 +33,7 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.WeaponFir
 public abstract class Weapon {
     private String name;
     private Material material;
-    private WeaponManager wm;
+    private WeaponManager wm = null;
     
     public Weapon(WeaponManager wm, String weaponName, Material material){
         this.name = weaponName;
@@ -51,6 +51,10 @@ public abstract class Weapon {
     
     public WeaponManager getWeaponManager(){
         return this.wm;
+    }
+    
+    public void setWeaponManager(WeaponManager wm){
+        this.wm = wm;
     }
     
     public abstract void onWeaponRightClick(WeaponFiredEvent event);
