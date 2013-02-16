@@ -115,7 +115,7 @@ public class GameManagementCommands implements CommandExecutor {
             p.sendRawMessage(ChatColor.RED+"You do not have permission");
             return true;
         }
-        if (args.length > 2 && args[0].equals("create")) {
+        if (args.length >= 2 && args[0].equals("create")) {
             Game newGame = new Game(gameManager.getPluginReference(), args[1]);
             this.editing.put(p.getName(), newGame);
             p.sendRawMessage(ChatColor.AQUA + "Game " + newGame.getName() + " was Created!");
