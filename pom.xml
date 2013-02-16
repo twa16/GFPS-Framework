@@ -44,7 +44,7 @@
             <resource>
                 <directory>.</directory>
                 <includes>
-                    <include>travis.yml</include>
+                    <include>.travis.yml</include>
                 </includes>
             </resource>
         </resources>
