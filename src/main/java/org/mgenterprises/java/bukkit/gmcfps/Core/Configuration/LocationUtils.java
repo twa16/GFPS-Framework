@@ -32,7 +32,7 @@ import org.bukkit.World;
  * @author Manuel Gauto
  */
 public class LocationUtils {
-    private static final String SPLIT = "$$";
+    private static final String SPLIT = "#";
     public static String getLocationAsString(Location loc){
         World w = loc.getWorld();
         int x = loc.getBlockX();
