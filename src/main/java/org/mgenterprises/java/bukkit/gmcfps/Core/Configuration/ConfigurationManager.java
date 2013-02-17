@@ -70,7 +70,7 @@ public class ConfigurationManager {
         int scoreCap = gameConfig.getInt("ScoreCap");
         int maxSize = gameConfig.getInt("MaxSize");
         
-        System.out.println(gameConfig.getString("Lobby"));
+        System.out.println(gameConfig.getString("Lobby").split("$$"));
         Location lobby = LocationUtils.getLocationFromString(gameConfig.getString("Lobby"));
         List<String> teamNames = gameConfig.getStringList("Teams");
         
