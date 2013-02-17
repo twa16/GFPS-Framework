@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -68,12 +69,16 @@ public class ConfigurationManager {
         boolean isFreeForAll = gameConfig.getBoolean("Freeforall");
         int scoreCap = gameConfig.getInt("ScoreCap");
         int maxSize = gameConfig.getInt("MaxSize");
+        Location lobby = LocationUtils.getLocationFromString(gameConfig.getString("Lobby"));
         List<String> teamNames = gameConfig.getStringList("Teams");
+        System.out.println(gameConfig.getString("Lobby"));
+        System.out.println(lobby);
+        
         Game game = new Game(plugin, name);
         game.setMaxSize(maxSize);
         game.setScoreCap(scoreCap);
         game.getFPSCore().getTeamManager().setFreeForAll(isFreeForAll);
-        game.getFPSCore().getSpawnManager().setLobby(LocationUtils.getLocationFromString(gameConfig.getString("Lobby")));
+        game.getFPSCore().getSpawnManager().setLobby(lobby);
         for(String tname : teamNames){
             game.getFPSCore().getTeamManager().registerTeam(new Team(tname));
             game.getFPSCore().getTeamManager().getTeam(tname).setSpawn(LocationUtils.getLocationFromString(gameConfig.getString("TeamSpawns."+tname)));
