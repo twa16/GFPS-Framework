@@ -30,6 +30,7 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.BukkitListeners.WeaponListeners
 import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.FPSEventManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.ScoreManager;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Scores.ScoreStreaks.ScoreStreakManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Spawns.SpawnManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.TeamManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.WeaponManager;
@@ -45,6 +46,7 @@ public class FPSCore {
     private FPSEventManager eventManager = new FPSEventManager();
     private TeamManager teamManager = new TeamManager(this);
     private SpawnManager spawnManager = new SpawnManager(this);
+    private ScoreStreakManager scoreStreakManager = new ScoreStreakManager(this);
     
     private CombatListeners combatListener = new CombatListeners(this);
     private WeaponListeners weaponListener = new WeaponListeners(this);
@@ -109,5 +111,6 @@ public class FPSCore {
     public final void init() {
         getEventManager().getPlayerKilledSource().addEventListener(this.scoreManager);
         getEventManager().getWeaponFiredSource().addEventListener(this.weaponManager);
+        getEventManager().getPlayerKilledSource().addEventListener(this.scoreStreakManager);
     }
 }

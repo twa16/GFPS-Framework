@@ -51,7 +51,7 @@ public class ScoreManager implements PlayerKilledByPlayerListener {
     public ScoreManager(FPSCore core) {
         this.core = core;
     }
-
+    
     /**
      * Override method for PlayerKilledByPlayerEvent
      *

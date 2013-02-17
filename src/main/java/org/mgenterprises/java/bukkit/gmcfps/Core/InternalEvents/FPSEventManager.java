@@ -23,10 +23,12 @@
  */
 package org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents;
 
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Events.ScoreStreakReachedEvent;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerHurtByPlayerSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerJoinedTeamSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerKilledByPlayerSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.PlayerLeftTeamSource;
+import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.ScoreStreakReachedSource;
 import org.mgenterprises.java.bukkit.gmcfps.Core.InternalEvents.Sources.WeaponFiredSource;
 
 /**
@@ -39,9 +41,14 @@ public class FPSEventManager {
     private PlayerJoinedTeamSource playerJoinedTeam = new PlayerJoinedTeamSource();
     private WeaponFiredSource wfs = new WeaponFiredSource();
     private PlayerLeftTeamSource playerLeftTeam = new PlayerLeftTeamSource();
+    private ScoreStreakReachedSource scoreStreakSource = new ScoreStreakReachedSource();
     
     public WeaponFiredSource getWeaponFiredSource(){
         return this.wfs;
+    }
+    
+    public ScoreStreakReachedSource getScoreStreakSource(){
+        return scoreStreakSource;
     }
     
     public PlayerKilledByPlayerSource getPlayerKilledSource(){
