@@ -69,8 +69,9 @@ public class ConfigurationManager {
         boolean isFreeForAll = gameConfig.getBoolean("Freeforall");
         int scoreCap = gameConfig.getInt("ScoreCap");
         int maxSize = gameConfig.getInt("MaxSize");
-        
-        System.out.println(gameConfig.getString("Lobby").split("$$"));
+        for(String s : gameConfig.getString("Lobby").split("$$")){
+        System.out.println(s);
+        }
         Location lobby = LocationUtils.getLocationFromString(gameConfig.getString("Lobby"));
         List<String> teamNames = gameConfig.getStringList("Teams");
         
