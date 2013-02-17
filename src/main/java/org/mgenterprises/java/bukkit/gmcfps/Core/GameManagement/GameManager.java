@@ -43,7 +43,7 @@ public class GameManager {
     private ArrayList<Weapon> defaultWeapons = new ArrayList<Weapon>();
 
     public GameManager(JavaPlugin plugin) {
-        configManager = new ConfigurationManager(plugin);
+        configManager = new ConfigurationManager(plugin, this);
         this.plugin = plugin;
     }
 
@@ -51,6 +51,19 @@ public class GameManager {
         this.defaultWeapons.add(w);
     }
 
+    public ArrayList<Weapon> getDefaultWeapons(){
+        return this.defaultWeapons;
+    }
+    
+    public Weapon getDefaultWeaponByName(String name){
+        for(Weapon w : defaultWeapons){
+            if(w.getName().equals(name)){
+                return w;
+            }
+        }
+        return null;
+    }
+    
     public JavaPlugin getPluginReference() {
         return this.plugin;
     }

@@ -34,7 +34,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
+import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.GameManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.Team;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
  *
@@ -44,10 +46,12 @@ public class ConfigurationManager {
 
     private File dataDirectory;
     private JavaPlugin plugin;
-    
-    public ConfigurationManager(JavaPlugin plugin) {
+    private GameManager gameManager;
+
+    public ConfigurationManager(JavaPlugin plugin, GameManager gameManager) {
         this.dataDirectory = plugin.getDataFolder();
         this.plugin = plugin;
+        this.gameManager = gameManager;
     }
 
     public ArrayList<File> getGameConfigurationFiles() {
@@ -71,20 +75,27 @@ public class ConfigurationManager {
         int maxSize = gameConfig.getInt("MaxSize");
         Location lobby = LocationUtils.getLocationFromString(gameConfig.getString("Lobby"));
         List<String> teamNames = gameConfig.getStringList("Teams");
-        
+
         Game game = new Game(plugin, name);
         game.setMaxSize(maxSize);
         game.setScoreCap(scoreCap);
         game.getFPSCore().getTeamManager().setFreeForAll(isFreeForAll);
         game.getFPSCore().getSpawnManager().setLobby(lobby);
-        for(String tname : teamNames){
+        for (String tname : teamNames) {
             game.getFPSCore().getTeamManager().registerTeam(new Team(tname));
-            game.getFPSCore().getTeamManager().getTeam(tname).setSpawn(LocationUtils.getLocationFromString(gameConfig.getString("TeamSpawns."+tname)));
+            game.getFPSCore().getTeamManager().getTeam(tname).setSpawn(LocationUtils.getLocationFromString(gameConfig.getString("TeamSpawns." + tname)));
+        }
+        for (String tname : teamNames) {
+            Weapon weapon = gameManager.getDefaultWeaponByName(name);
+            if (game != null) {
+                game.getFPSCore().getWeaponManager().registerWeapon(weapon);
+            }
+            game.getFPSCore().getTeamManager().getTeam(tname).setSpawn(LocationUtils.getLocationFromString(gameConfig.getString("TeamSpawns." + tname)));
         }
         return game;
     }
-    
-    public void saveGameConfig(Game game){
+
+    public void saveGameConfig(Game game) {
         FileConfiguration gameConfig = new YamlConfiguration();
         gameConfig.set("Name", game.getName());
         gameConfig.set("Freeforall", game.getFPSCore().getTeamManager().isFreeForAll());
@@ -92,11 +103,17 @@ public class ConfigurationManager {
         gameConfig.set("MaxSize", game.getMaxSize());
         gameConfig.set("Teams", game.getFPSCore().getTeamManager().getAllTeamsNames());
         gameConfig.set("Lobby", LocationUtils.getLocationAsString(game.getFPSCore().getSpawnManager().getLobby()));
-        for(Team t : game.getFPSCore().getTeamManager().getAllTeams()){
-            gameConfig.set("TeamSpawns."+t.getName(), LocationUtils.getLocationAsString(t.getSpawn()));
+        for (Team t : game.getFPSCore().getTeamManager().getAllTeams()) {
+            gameConfig.set("TeamSpawns." + t.getName(), LocationUtils.getLocationAsString(t.getSpawn()));
         }
+        ArrayList<String> weaponNames = new ArrayList<String>();
+        for (Weapon w : game.getFPSCore().getWeaponManager().getAllWeapons()) {
+            weaponNames.add(w.getName());
+        }
+        gameConfig.set("Weapons", weaponNames);
+
         try {
-            gameConfig.save(dataDirectory+"/"+game.getName()+".yml");
+            gameConfig.save(dataDirectory + "/" + game.getName() + ".yml");
         } catch (IOException ex) {
             Logger.getLogger(ConfigurationManager.class.getName()).log(Level.SEVERE, null, ex);
         }
