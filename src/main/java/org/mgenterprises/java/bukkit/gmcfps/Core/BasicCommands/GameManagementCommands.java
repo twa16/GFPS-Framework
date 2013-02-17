@@ -24,11 +24,14 @@
 package org.mgenterprises.java.bukkit.gmcfps.Core.BasicCommands;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Exceptions.LobbyNotDefinedException;
 import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
 import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.GameManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.Team;
@@ -74,6 +77,11 @@ public class GameManagementCommands implements CommandExecutor {
                         p.sendRawMessage(ChatColor.BLUE + "Please enter a valid game name!");
                     } else {
                         if (g.registerPlayer(p)) {
+                            try {
+                                g.getFPSCore().getSpawnManager().teleportToBaseSpawn(p);
+                            } catch (LobbyNotDefinedException ex) {
+                                Logger.getLogger(GameManagementCommands.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             p.sendRawMessage(ChatColor.BLUE + "You have joined: " + g.getName());
                         } else {
                             p.sendRawMessage(ChatColor.BLUE + g.getName() + " is full!");
@@ -127,7 +135,7 @@ public class GameManagementCommands implements CommandExecutor {
             p.sendRawMessage(ChatColor.AQUA + "Game lobby set at your current location!");
             p.sendRawMessage(ChatColor.AQUA + "Next Step: " + "Decide if the game will be free for all using " + ChatColor.GREEN + "/game setffa [true/false]");
         }
-        if (args.length > 2 && args[0].equals("setffa")) {
+        if (args.length >= 2 && args[0].equals("setffa")) {
             Game newGame = this.editing.get(p.getName());
             if (args[1].contains("t")) {
                 p.sendRawMessage(ChatColor.AQUA + "Free for all was set to " + ChatColor.BLUE + "TRUE");
@@ -139,7 +147,7 @@ public class GameManagementCommands implements CommandExecutor {
             p.sendRawMessage(ChatColor.AQUA + "Free for all was set to " + ChatColor.RED + "FALSE");
             p.sendRawMessage(ChatColor.AQUA + "Next Step: " + "Add teams using " + ChatColor.GREEN + "/game addteam [name]");
         }
-        if (args.length > 2 && args[0].equals("addteam")) {
+        if (args.length >= 2 && args[0].equals("addteam")) {
             Game newGame = this.editing.get(p.getName());
             newGame.getFPSCore().getTeamManager().registerTeam(new Team(args[1]));
             p.sendRawMessage(ChatColor.AQUA + "Team " + args[1] + " was Added!");
