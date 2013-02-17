@@ -90,7 +90,7 @@ public class GameManager {
 
         for (File f : gameFilesLoaded) {
             Game g = configManager.processGameConfigurationFile(f);
-            games.put(g.getName(), g);
+            registerGame(g);
         }
     }
 }
