@@ -127,7 +127,7 @@ public class GameManagementCommands implements CommandExecutor {
                     for (Weapon w : game.getFPSCore().getWeaponManager().getAllWeapons()) {
                         if (w.isProjectile()) {
                             ProjectileWeapon pw = (ProjectileWeapon) w;
-                            p.sendRawMessage(ChatColor.BLUE + w.getName() + " Material: " + w.getMaterial() + " Ammo: " + pw.getAmmunitionType());
+                            p.sendRawMessage(ChatColor.BLUE + w.getName() + ChatColor.WHITE + " Material: " + ChatColor.BLUE +  w.getMaterial() + ChatColor.WHITE + " Ammo: " + ChatColor.BLUE + pw.getAmmunitionType());
                         } else {
                             p.sendRawMessage(ChatColor.BLUE + w.getName() + " Material: " + w.getMaterial());
                         }
