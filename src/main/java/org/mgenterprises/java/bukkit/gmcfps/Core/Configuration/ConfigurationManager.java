@@ -87,7 +87,7 @@ public class ConfigurationManager {
         }
         for (String tname : teamNames) {
             Weapon weapon = gameManager.getDefaultWeaponByName(name);
-            if (game != null) {
+            if (weapon != null) {
                 weapon.setWeaponManager(game.getFPSCore().getWeaponManager());
                 game.getFPSCore().getWeaponManager().registerWeapon(weapon);
             }
