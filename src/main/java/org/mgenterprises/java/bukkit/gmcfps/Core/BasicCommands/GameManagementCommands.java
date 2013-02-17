@@ -35,11 +35,8 @@ import org.mgenterprises.java.bukkit.gmcfps.Core.Exceptions.LobbyNotDefinedExcep
 import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.Game;
 import org.mgenterprises.java.bukkit.gmcfps.Core.GameManagement.GameManager;
 import org.mgenterprises.java.bukkit.gmcfps.Core.Teams.Team;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicRocketLauncher;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicSMG;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicShotgun;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.BasicSniper;
-import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Implementations.Twa16GodWeapon;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.ProjectileWeapon;
+import org.mgenterprises.java.bukkit.gmcfps.Core.Weapons.Weapon;
 
 /**
  *
@@ -63,6 +60,8 @@ public class GameManagementCommands implements CommandExecutor {
             return processLeaveCommand(cs, args);
         } else if (string.equalsIgnoreCase(Commands.GAME.toString())) {
             return processWizard(cs, args);
+        } else if (string.equalsIgnoreCase(Commands.WEAPONS.toString())) {
+            return processWeaponList(cs, args);
         }
         return false;
     }
@@ -117,10 +116,32 @@ public class GameManagementCommands implements CommandExecutor {
         return true;
     }
 
+    private boolean processWeaponList(CommandSender cs, String[] args) {
+        if (cs instanceof Player) {
+            if (((Player) cs).hasPermission("gfps.play") || ((Player) cs).isOp()) {
+                Player p = (Player) cs;
+                Game game = this.gameManager.getPlayerGame(p);
+                if (game == null) {
+                    p.sendRawMessage(ChatColor.RED + "You are not in a game!");
+                } else {
+                    for (Weapon w : game.getFPSCore().getWeaponManager().getAllWeapons()) {
+                        if (w.isProjectile()) {
+                            ProjectileWeapon pw = (ProjectileWeapon) w;
+                            p.sendRawMessage(ChatColor.BLUE + w.getName() + " Material: " + w.getMaterial() + " Ammo: " + pw.getAmmunitionType());
+                        } else {
+                            p.sendRawMessage(ChatColor.BLUE + w.getName() + " Material: " + w.getMaterial());
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     private boolean processWizard(CommandSender cs, String[] args) {
         Player p = (Player) cs;
         if (!p.hasPermission("gfps.create") && !p.isOp()) {
-            p.sendRawMessage(ChatColor.RED+"You do not have permission");
+            p.sendRawMessage(ChatColor.RED + "You do not have permission");
             return true;
         }
         if (args.length >= 2 && args[0].equals("create")) {
@@ -166,7 +187,7 @@ public class GameManagementCommands implements CommandExecutor {
             Game g = this.editing.get(p.getName());
             gameManager.registerGame(g);
             this.editing.remove(p.getName());
-            p.sendRawMessage(ChatColor.AQUA + g.getName()+" completed!");
+            p.sendRawMessage(ChatColor.AQUA + g.getName() + " completed!");
         }
         return true;
     }

@@ -54,6 +54,11 @@ public class WeaponManager implements WeaponFiredListener {
         this.weapons.put(w.getName(), w);
     }
 
+    public Weapon[] getAllWeapons(){
+        Weapon[] weaponstemplate = new Weapon[this.weapons.size()];
+        return this.weapons.values().toArray(weaponstemplate);
+    }
+    
     public Weapon getWeaponByType(Material m) {
         ArrayList<Weapon> weaponsArray = new ArrayList<Weapon>(weapons.values());
 

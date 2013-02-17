@@ -32,7 +32,8 @@ public enum Commands {
     LEAVE("LEAVE"),
     SCORE("SCORE"),
     TOP("TOP"),
-    GAME("GAME");
+    GAME("GAME"),
+    WEAPONS("WEAPONS");
     
     String name;
     Commands(String name){
