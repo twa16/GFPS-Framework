@@ -69,10 +69,10 @@ public class ConfigurationManager {
         boolean isFreeForAll = gameConfig.getBoolean("Freeforall");
         int scoreCap = gameConfig.getInt("ScoreCap");
         int maxSize = gameConfig.getInt("MaxSize");
+        
+        System.out.println(gameConfig.getString("Lobby"));
         Location lobby = LocationUtils.getLocationFromString(gameConfig.getString("Lobby"));
         List<String> teamNames = gameConfig.getStringList("Teams");
-        System.out.println(gameConfig.getString("Lobby"));
-        System.out.println(lobby);
         
         Game game = new Game(plugin, name);
         game.setMaxSize(maxSize);
