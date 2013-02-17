@@ -65,7 +65,7 @@ public class SpawnManager implements PlayerLeftTeamListener{
     public void onPlayerRespawn(PlayerRespawnEvent event){
         if(core.getTeamManager().isParticipating(event.getPlayer())){
             Team t = core.getTeamManager().getPlayerTeam(event.getPlayer());
-            event.getPlayer().teleport(t.getSpawn());
+            event.setRespawnLocation(t.getSpawn());
         }
     }
     
