@@ -48,6 +48,10 @@ public class SpawnManager implements PlayerLeftTeamListener{
         this.core = core;
     }
     
+    public Location getLobby(){
+        return this.lobby;
+    }
+    
     public void setLobby(Location newLobby){
         this.lobby = newLobby;
     }

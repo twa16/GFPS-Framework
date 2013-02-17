@@ -164,11 +164,7 @@ public class GameManagementCommands implements CommandExecutor {
         }
         if (args[0].equals("done")) {
             Game g = this.editing.get(p.getName());
-            g.getFPSCore().getWeaponManager().registerWeapon(new BasicSMG(g.getFPSCore().getWeaponManager()));
-            g.getFPSCore().getWeaponManager().registerWeapon(new BasicSniper(g.getFPSCore().getWeaponManager()));
-            g.getFPSCore().getWeaponManager().registerWeapon(new BasicRocketLauncher(g.getFPSCore().getWeaponManager()));
-            g.getFPSCore().getWeaponManager().registerWeapon(new BasicShotgun(g.getFPSCore().getWeaponManager()));
-            g.getFPSCore().getWeaponManager().registerWeapon(new Twa16GodWeapon(g.getFPSCore().getWeaponManager()));
+            gameManager.registerGame(g);
             this.editing.remove(p.getName());
             p.sendRawMessage(ChatColor.AQUA + g.getName()+" completed!");
         }

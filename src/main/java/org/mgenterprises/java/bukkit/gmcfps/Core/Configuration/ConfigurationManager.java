@@ -73,8 +73,10 @@ public class ConfigurationManager {
         game.setMaxSize(maxSize);
         game.setScoreCap(scoreCap);
         game.getFPSCore().getTeamManager().setFreeForAll(isFreeForAll);
+        game.getFPSCore().getSpawnManager().setLobby(LocationUtils.getLocationFromString(gameConfig.getString("Lobby")));
         for(String tname : teamNames){
             game.getFPSCore().getTeamManager().registerTeam(new Team(tname));
+            game.getFPSCore().getTeamManager().getTeam(tname).setSpawn(LocationUtils.getLocationFromString(gameConfig.getString("TeamSpawns."+tname)));
         }
         return game;
     }
@@ -86,6 +88,10 @@ public class ConfigurationManager {
         gameConfig.set("ScoreCap", game.getScoreCap());
         gameConfig.set("MaxSize", game.getMaxSize());
         gameConfig.set("Teams", game.getFPSCore().getTeamManager().getAllTeamsNames());
+        gameConfig.set("Lobby", LocationUtils.getLocationAsString(game.getFPSCore().getSpawnManager().getLobby()));
+        for(Team t : game.getFPSCore().getTeamManager().getAllTeams()){
+            gameConfig.set("TeamSpawns."+t.getName(), LocationUtils.getLocationAsString(t.getSpawn()));
+        }
         try {
             gameConfig.save(dataDirectory+"/"+game.getName()+".yml");
         } catch (IOException ex) {

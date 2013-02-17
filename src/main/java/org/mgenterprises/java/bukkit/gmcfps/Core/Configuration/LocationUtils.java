@@ -32,8 +32,8 @@ import org.bukkit.World;
  * @author Manuel Gauto
  */
 public class LocationUtils {
-    private final String SPLIT = "$$";
-    public String getLocationAsString(Location loc){
+    private static final String SPLIT = "$$";
+    public static String getLocationAsString(Location loc){
         World w = loc.getWorld();
         int x = loc.getBlockX();
         int y = loc.getBlockY();
@@ -55,7 +55,7 @@ public class LocationUtils {
         return sb.toString();
     }
     
-    public Location getLocationFromString(String s){
+    public static Location getLocationFromString(String s){
         String[] parts = s.split(SPLIT);
         World w = Bukkit.getWorld(parts[0]);
         int x = Integer.parseInt(parts[1]);
